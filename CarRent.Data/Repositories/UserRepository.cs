@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using CarRent.Data.Persistence;
 using CarRent.Data.Repositories.Abstract;
 using CarRent.Domain.Entities;
@@ -18,6 +19,11 @@ namespace CarRent.Data.Repositories
         public Task<User> GetUserByEmailAsync(string email)
         {
             return _context.Users.SingleOrDefaultAsync(x => x.Email.ToLower() == email.ToLower());
+        }
+
+        public User GetUserByEmail(string email)
+        {
+            return _context.Users.SingleOrDefault(x => x.Email.ToLower() == email.ToLower());
         }
     }
 }
