@@ -6,5 +6,6 @@ namespace CarRent.Data.Repositories.Abstract
     public interface IUserRepository
     {
         Task<User> GetUserByEmailAsync(string email);
+        User GetUserByEmail(string email);
     }
 }

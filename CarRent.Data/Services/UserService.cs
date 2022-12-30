@@ -33,12 +33,12 @@ namespace CarRent.Data.Services
             return AuthenticationResult.Authenticated;
         }
 
-        public async Task<UserModel> GetByEmail(string email)
+        public UserModel GetByEmail(string email)
         {
             if (string.IsNullOrEmpty(email))
                 return null;
 
-            var user = await _userRepository.GetUserByEmailAsync(email);
+            var user = _userRepository.GetUserByEmail(email);
             if (user is null)
                 return null;
 

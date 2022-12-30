@@ -3,8 +3,8 @@ using System.Net;
 using System.Security;
 using System.Security.Principal;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using CarRent.Common.Authentication.Constants;
 using CarRent.Data.Services.Abstract;
 
 namespace CarRent.App.ViewModels
@@ -106,7 +106,7 @@ namespace CarRent.App.ViewModels
                 if (authenticationResult.IsAdmin)
                 {
                     Thread.CurrentPrincipal = new GenericPrincipal(
-                        new GenericIdentity(Email), new string[] {"admin"});
+                        new GenericIdentity(Email), new [] {AuthConstants.AdminRole});
                     IsViewVisible = false;
                 }
                 else

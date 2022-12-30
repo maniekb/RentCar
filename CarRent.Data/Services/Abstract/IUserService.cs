@@ -8,6 +8,6 @@ namespace CarRent.Data.Services.Abstract
     public interface IUserService
     {
         Task<AuthenticationResult> AuthenticateUser(NetworkCredential networkCredential);
-        Task<UserModel> GetByEmail(string email);
+        UserModel GetByEmail(string email);
     }
 }

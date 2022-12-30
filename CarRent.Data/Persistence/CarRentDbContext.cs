@@ -9,7 +9,7 @@ namespace CarRent.Data.Persistence
         public CarRentDbContext(DbContextOptions<CarRentDbContext> options) : base(options)
         {
         }
-
+        
         public DbSet<User> Users { get; set; }
     }
 }

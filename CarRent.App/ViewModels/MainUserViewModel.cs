@@ -1,12 +1,10 @@
 ﻿using System.Threading;
-using System.Threading.Tasks;
 using CarRent.App.Models;
-using CarRent.Data.Services;
 using CarRent.Data.Services.Abstract;
 
 namespace CarRent.App.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    public class MainUserViewModel : ViewModelBase
     {
         //Fields
         private UserAccountModel _currentUserAccount;
@@ -26,25 +24,24 @@ namespace CarRent.App.ViewModels
             }
         }
 
-        public MainViewModel(IUserService userService)
+        public MainUserViewModel(IUserService userService)
         {
-            userService = userService;
+            _userService = userService;
             CurrentUserAccount = new UserAccountModel();
             LoadCurrentUserData();
         }
 
-        private async Task LoadCurrentUserData()
+        private void LoadCurrentUserData()
         {
-            var user = await _userService.GetByEmail(Thread.CurrentPrincipal?.Identity?.Name);
+            var user = _userService.GetByEmail(Thread.CurrentPrincipal?.Identity?.Name);
             if (user != null)
             {
                 CurrentUserAccount.Email = user.Email;
-                CurrentUserAccount.DisplayName = $"Welcome {user.Name} {user.LastName}.)";
+                CurrentUserAccount.DisplayName = $"Welcome {user.Name} {user.LastName}.";
             }
             else
             {
                 CurrentUserAccount.DisplayName = "Not logged in";
-                //Hide child views.
             }
         }
     }
