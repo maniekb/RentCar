@@ -25,8 +25,8 @@ namespace CarRent.Data.Migrations
                     table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
-            migrationBuilder.Sql("INSERT INTO \"Users\"(\"Email\", \"Password\", \"IsAdmin\", \"Name\", \"LastName\") VALUES ('admin@admin.com', 'pwd', true, 'Admin', 'Adminowski');");
-            migrationBuilder.Sql("INSERT INTO \"Users\"(\"Email\", \"Password\", \"IsAdmin\", \"Name\", \"LastName\") VALUES ('user@user.com', 'pwd', false, 'User', 'Userowski');");
+            migrationBuilder.Sql("INSERT INTO \"Users\"(\"Email\", \"Password\", \"IsAdmin\", \"Name\", \"LastName\") VALUES ('admin@admin.com', '072c907f9be04b7e2a01c143440e7627', true, 'Admin', 'Adminowski');");
+            migrationBuilder.Sql("INSERT INTO \"Users\"(\"Email\", \"Password\", \"IsAdmin\", \"Name\", \"LastName\") VALUES ('user@user.com', '072c907f9be04b7e2a01c143440e7627', false, 'User', 'Userowski');");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

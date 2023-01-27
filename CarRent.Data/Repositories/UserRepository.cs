@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CarRent.Data.Persistence;
 using CarRent.Data.Repositories.Abstract;
@@ -24,6 +25,11 @@ namespace CarRent.Data.Repositories
         public User GetUserByEmail(string email)
         {
             return _context.Users.SingleOrDefault(x => x.Email.ToLower() == email.ToLower());
+        }
+
+        public List<User> GetAllNonAdmin()
+        {
+            return _context.Users.Where(x => !x.IsAdmin).ToList();
         }
     }
 }

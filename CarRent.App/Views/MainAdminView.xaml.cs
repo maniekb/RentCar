@@ -1,11 +1,12 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
+using System.Windows;
 using CarRent.App.ViewModels;
 
 namespace CarRent.App.Views
 {
     /// <summary>
     /// Interaction logic for MainAdminView.xaml
-    /// </summary>
+    /// </summary>F
     public partial class MainAdminView : Window
     {
         public MainAdminView(MainAdminViewModel mainAdminViewModel)

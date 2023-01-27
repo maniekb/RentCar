@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using CarRent.Domain.Entities;
 
 namespace CarRent.Data.Repositories.Abstract
@@ -7,5 +8,6 @@ namespace CarRent.Data.Repositories.Abstract
     {
         Task<User> GetUserByEmailAsync(string email);
         User GetUserByEmail(string email);
+        List<User> GetAllNonAdmin();
     }
 }

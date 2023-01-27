@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.Windows;
 using CarRent.App.ViewModels;
 
@@ -15,4 +16,5 @@ namespace CarRent.App.Views
             DataContext = mainUserViewModel;
         }
     }
+
 }

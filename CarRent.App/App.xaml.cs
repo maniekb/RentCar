@@ -92,9 +92,14 @@ namespace CarRent.App
             (options => options.UseNpgsql(
                 Configuration.GetConnectionString("Database")), ServiceLifetime.Transient, ServiceLifetime.Transient);
 
+
             // Services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICarService, CarService>();
+            services.AddScoped<ICarRepository, CarRepository>();
+            services.AddScoped<IBookingService, BookingService>();
+            services.AddScoped<IBookingRepository, BookingRepository>();
         }
     }
 }
