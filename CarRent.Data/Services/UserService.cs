@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using CarRent.App.Models;
 using CarRent.Common.Authentication.Helpers;
@@ -52,6 +54,20 @@ namespace CarRent.Data.Services
             };
 
             return model;
+        }
+
+        public List<UserModel> GetAllNonAdmin()
+        {
+            var users = _userRepository.GetAllNonAdmin();
+
+            return users.Select(u => new UserModel()
+            {
+                Id = u.Id,
+                IsAdmin = u.IsAdmin,
+                Email = u.Email,
+                LastName = u.LastName,
+                Name = u.Name
+            }).ToList();
         }
     }
 }

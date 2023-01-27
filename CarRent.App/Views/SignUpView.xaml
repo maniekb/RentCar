@@ -11,7 +11,6 @@
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         AllowsTransparency="True"
-        MouseDown="Window_MouseDown"
         Title="SignUpView" Height="550" Width="800">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
@@ -56,7 +55,7 @@
                         <ColumnDefinition Width="5"/>
                     </Grid.ColumnDefinitions>
 
-                    
+
 
                     <Button x:Name="btnMinimize"                           
                             BorderThickness="0"
@@ -65,8 +64,7 @@
                             FontSize="16"
                             FontFamily="Montserrat"
                             Cursor="Hand"
-                            Grid.Column="1"
-                            Click="btnMinimize_Click">
+                            Grid.Column="1">
 
                         <Button.Style>
                             <Style TargetType="Button">
@@ -99,8 +97,7 @@
                             FontSize="12"
                             FontFamily="Montserrat"
                             Cursor="Hand"
-                            Grid.Column="2"
-                            Click="btnClose_Click">
+                            Grid.Column="2">
 
                         <Button.Style>
                             <Style TargetType="Button">
