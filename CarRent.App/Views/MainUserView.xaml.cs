@@ -23,13 +23,5 @@ namespace CarRent.App.Views
 
         }
     }
-    public class Rent
-    {
-        public string CarName { get; set; }
-
-        public string From { get; set; }
-
-        public string To { get; set; }
-    }
 
 }
