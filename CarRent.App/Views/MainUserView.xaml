@@ -4,77 +4,187 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:CarRent.App.ViewModels"
+        xmlns:customControls="clr-namespace:CarRent.App.CustomControls"
         mc:Ignorable="d"
         Title="MainUserWindowView" Height="450" Width="800"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        MouseDown="Window_MouseDown"
+        Background="Transparent"
+        >
 
-    <Grid>
-        <TabControl>
-            <TabItem Header="Lista Aut">
-                <DockPanel>
-                    <ListBox Name="mcListBox" DockPanel.Dock="Left" >
-                        <ListBoxItem>Orange</ListBoxItem>
-                        <ListBoxItem>Green</ListBoxItem>
-                        <ListBoxItem>Blue</ListBoxItem>
-                        <ListBoxItem>Gray</ListBoxItem>
-                        <ListBoxItem>LightGray</ListBoxItem>
-                        <ListBoxItem>Red</ListBoxItem>
-                    </ListBox>
-                    <Grid>
-                        <StackPanel>
-                            <Label Content="Model + Marka" FontWeight="Bold" FontSize="20"/>
-                            <Label Content="Typ" FontWeight="Normal" FontSize="14"/>
-                            <Label Content="Rok produkcji" FontWeight="Normal" FontSize="14"/>
-                            <Label Content="Kolor" FontWeight="Normal" FontSize="14"/>
-                            <Label Content="Silnik" FontWeight="Normal" FontSize="14"/>
-                            <Label Content="Rodzaj skrzyni biegow" FontWeight="Normal" FontSize="14"/>
-                            <Label Content="Przebieg" FontWeight="Normal" FontSize="14"/>
-                            <Label Content="Naped" FontWeight="Normal" FontSize="14"/>
-                            <Label Content="Rodzaj paliwa" FontWeight="Normal" FontSize="14"/>
+    <Border CornerRadius="12">
+        <Border CornerRadius="10"                    
+                BorderThickness="2"
+                Opacity="0.95">
 
-                        </StackPanel>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="#060531" Offset="0"/>
+                    <GradientStop Color="#1B1448" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
 
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-                        <Button Content="Rezerwuj" HorizontalAlignment="Left" Margin="600,346,0,0" VerticalAlignment="Top" Width="100" Height="40"/>
+                <Grid Grid.Row="0">
 
-                    </Grid>
-                </DockPanel>
-            </TabItem>
-            <TabItem Header="Nadchodzace wynajmy">
-                <ListView Name="lvDataBinding">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <WrapPanel>
-                                <TextBlock Text="Name: " />
-                                <TextBlock Text="{Binding CarName}" FontWeight="Bold" />
-                                <TextBlock Text=", " />
-                                <TextBlock Text="From: " />
-                                <TextBlock Text="{Binding From}" FontWeight="Bold" />
-                                <TextBlock Text=" To: " />
-                                <TextBlock Text="{Binding To}" FontWeight="Bold" />
-                                <Button Content="Anuluj rezerwacje" Margin="50,0,0,0"></Button>
-                            </WrapPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </TabItem>
-            <TabItem Header="Konto">
-                <Grid>
-                    <StackPanel>
-                        <Label Content="User user" FontWeight="Bold" FontSize="20"/>
-                        <Label Content="Email" FontWeight="Normal" FontSize="14"/>
-                        <Label Content="Dolaczyl" FontWeight="Normal" FontSize="14"/>
-                        <Label Content="Ilosc rezerwacji" FontWeight="Normal" FontSize="14"/>
-                        <Button Content="Wyloguj" Height="30" Width="100" HorizontalAlignment="Left" Margin="0,20,0,0"/>
-                        <Button Content="Zmien haslo" Height="30" Width="100" HorizontalAlignment="Left"/>
-                        <Button Content="Usun konto" Height="30" Width="100" HorizontalAlignment="Left"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
 
+                    <TextBlock Text="Witaj, IMIE NAZWISKO"
+                               Foreground="DarkGray"
+                               FontSize="10"
+                               FontFamily="Montserrat"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="10,0,0,0"/>
 
-                    </StackPanel>
+                    <Button x:Name="btnMinimize"                           
+                            BorderThickness="0"
+                            Content="-"
+                            Foreground="White"
+                            FontSize="16"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            Grid.Column="1"
+                            Click="btnMinimize_Click">
+
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#28AEED"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#278BEF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
+
+                    <Button x:Name="btnClose"                          
+                            BorderThickness="0"
+                            Content="X"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            Grid.Column="2"
+                            Click="btnClose_Click">
+
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#DA34AE"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#C62DAE"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </Grid>
+                <TabControl Grid.Row="1">
+                    <TabItem Header="Lista Aut">
+                        <DockPanel>
+                            <ListBox Name="mcListBox" DockPanel.Dock="Left" >
+                                <ListBoxItem>Orange</ListBoxItem>
+                                <ListBoxItem>Green</ListBoxItem>
+                                <ListBoxItem>Blue</ListBoxItem>
+                                <ListBoxItem>Gray</ListBoxItem>
+                                <ListBoxItem>LightGray</ListBoxItem>
+                                <ListBoxItem>Red</ListBoxItem>
+                            </ListBox>
+                            <Grid>
+                                <StackPanel>
+                                    <Label Content="Model + Marka" FontWeight="Bold" FontSize="20"/>
+                                    <Label Content="Typ" FontWeight="Normal" FontSize="14"/>
+                                    <Label Content="Rok produkcji" FontWeight="Normal" FontSize="14"/>
+                                    <Label Content="Kolor" FontWeight="Normal" FontSize="14"/>
+                                    <Label Content="Silnik" FontWeight="Normal" FontSize="14"/>
+                                    <Label Content="Rodzaj skrzyni biegow" FontWeight="Normal" FontSize="14"/>
+                                    <Label Content="Przebieg" FontWeight="Normal" FontSize="14"/>
+                                    <Label Content="Naped" FontWeight="Normal" FontSize="14"/>
+                                    <Label Content="Rodzaj paliwa" FontWeight="Normal" FontSize="14"/>
 
-            </TabItem>
-        </TabControl>
+                                </StackPanel>
 
-    </Grid>
+
+                                <Button Content="Rezerwuj" HorizontalAlignment="Left" Margin="600,346,0,0" VerticalAlignment="Top" Width="100" Height="40"/>
+
+                            </Grid>
+                        </DockPanel>
+                    </TabItem>
+                    <TabItem Header="Nadchodzace wynajmy">
+                        <ListView Name="lvDataBinding">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <WrapPanel>
+                                        <TextBlock Text="Name: " />
+                                        <TextBlock Text="{Binding CarName}" FontWeight="Bold" />
+                                        <TextBlock Text=", " />
+                                        <TextBlock Text="From: " />
+                                        <TextBlock Text="{Binding From}" FontWeight="Bold" />
+                                        <TextBlock Text=" To: " />
+                                        <TextBlock Text="{Binding To}" FontWeight="Bold" />
+                                        <Button Content="Anuluj rezerwacje" Margin="50,0,0,0"></Button>
+                                    </WrapPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </TabItem>
+                    <TabItem Header="Konto">
+                        <Grid>
+                            <StackPanel>
+                                <Label Content="User user" FontWeight="Bold" FontSize="20"/>
+                                <Label Content="Email" FontWeight="Normal" FontSize="14"/>
+                                <Label Content="Dolaczyl" FontWeight="Normal" FontSize="14"/>
+                                <Label Content="Ilosc rezerwacji" FontWeight="Normal" FontSize="14"/>
+                                <Button Content="Wyloguj" Height="30" Width="100" HorizontalAlignment="Left" Margin="0,20,0,0"/>
+                                <Button Content="Zmien haslo" Height="30" Width="100" HorizontalAlignment="Left"/>
+                                <Button Content="Usun konto" Height="30" Width="100" HorizontalAlignment="Left"/>
+
+
+                            </StackPanel>
+                        </Grid>
+
+                    </TabItem>
+                </TabControl>
+                <StackPanel/>
+
+            </Grid>
+        </Border>
+    </Border>
 </Window>

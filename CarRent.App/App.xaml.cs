@@ -58,7 +58,7 @@ namespace CarRent.App
                     }
                     else
                     {
-                        mainWindow = ServiceProvider.GetRequiredService<MainUserView>();
+                        mainWindow = ServiceProvider.GetRequiredService<UserWrapperView>();
                     }
 
                     mainWindow.Show();
@@ -81,6 +81,7 @@ namespace CarRent.App
             services.AddTransient(typeof(LoginView));
             services.AddTransient(typeof(MainAdminView));
             services.AddTransient(typeof(MainUserView));
+            services.AddTransient(typeof(UserWrapperView));
 
             // ViewModels
             services.AddTransient(typeof(LoginViewModel));
