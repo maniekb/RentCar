@@ -4,6 +4,7 @@ using CarRent.Data.Services.Abstract;
 using System.Collections.Generic;
 using System.Threading;
 using CarRent.Common.Models;
+using System.Windows.Input;
 
 namespace CarRent.App.ViewModels
 {
@@ -14,6 +15,7 @@ namespace CarRent.App.ViewModels
         private readonly IUserService _userService;
         private readonly ICarService _carService;
         private readonly IBookingService _bookingsService;
+        public ICommand LogoutCommand { get; }
 
         public UserAccountModel CurrentUserAccount
         {
@@ -39,6 +41,8 @@ namespace CarRent.App.ViewModels
             _carService = carService;
             _bookingsService = bookingsService;
             CurrentUserAccount = new UserAccountModel();
+            LogoutCommand = new ViewModelCommand(p => ExecuteLogoutCommand());
+
             LoadCurrentUserData();
             LoadViewData();
         }
@@ -63,5 +67,12 @@ namespace CarRent.App.ViewModels
                 CurrentUserAccount.DisplayName = "Not logged in";
             }
         }
+
+        private async void ExecuteLogoutCommand()
+        {
+            App thisApp = (App)App.Current;
+            thisApp.ShowLogin();
+        }
+
     }
 }

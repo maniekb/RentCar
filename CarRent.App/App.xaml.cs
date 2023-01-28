@@ -39,10 +39,10 @@ namespace CarRent.App
 
             ServiceProvider = serviceCollection.BuildServiceProvider();
             RunMigrations(ServiceProvider);
-            Show();
+            ShowLogin();
         }
 
-        private void Show()
+        public void ShowLogin()
         {
             var loginView = ServiceProvider.GetRequiredService<LoginView>();
             loginView.Show();

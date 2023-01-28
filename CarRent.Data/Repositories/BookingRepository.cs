@@ -34,5 +34,26 @@ namespace CarRent.Data.Repositories
                 .Include(x => x.Car)
                 .Include(x => x.User)
                 .Where(x => x.DateFrom > DateTime.Now).ToList();
+
+        public List<Booking> GetCurrentBookingsForUser(int userID)
+            => _context.Bookings
+                .Include(x => x.Car)
+                .Include(x => x.User)
+                .Where(x => x.User.Id == userID && x.DateFrom < DateTime.Now && x.DateTo > DateTime.Now)
+                .ToList();
+
+        public List<Booking> GetPastBookingsForUser(int userID)
+            => _context.Bookings
+                .Include(x => x.Car)
+                .Include(x => x.User)
+                .Where(x => x.User.Id == userID && x.DateTo < DateTime.Now)
+                .ToList();
+
+        public List<Booking> GetUpcomingBookingsForUser(int userID)
+            => _context.Bookings
+                .Include(x => x.Car)
+                .Include(x => x.User)
+                .Where(x => x.User.Id == userID && x.DateFrom > DateTime.Now)
+                .ToList();
     }
 }
