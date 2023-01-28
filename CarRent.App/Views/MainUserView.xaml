@@ -41,22 +41,86 @@
                 </DockPanel>
             </TabItem>
             <TabItem Header="Nadchodzace wynajmy">
-                <ListView Name="lvDataBinding">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <WrapPanel>
-                                <TextBlock Text="Name: " />
-                                <TextBlock Text="{Binding CarName}" FontWeight="Bold" />
-                                <TextBlock Text=", " />
-                                <TextBlock Text="From: " />
-                                <TextBlock Text="{Binding From}" FontWeight="Bold" />
-                                <TextBlock Text=" To: " />
-                                <TextBlock Text="{Binding To}" FontWeight="Bold" />
-                                <Button Content="Anuluj rezerwacje" Margin="50,0,0,0"></Button>
-                            </WrapPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <StackPanel>
+                    <Label FontSize="20">Aktualne rezerwacje</Label>
+                    <ListView DockPanel.Dock="Top" ItemsSource="{Binding Bookings.CurrentBookings}">
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Booking information">
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Car}" Header="Auto" Width="200"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=DateFrom}" Header="Od" Width="100"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=DateTo}" Header="Do" Width="100"/>
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button
+                                                Content="Edytuj"
+                                                Margin="0"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Left">
+                                            </Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button
+                                                Content="Usuń"
+                                                Margin="0"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Left">
+                                            </Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Label FontSize="20">Nadchodzące rezerwacje</Label>
+                    <ListView DockPanel.Dock="Top"  ItemsSource="{Binding Bookings.UpcomingBookings}">
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Booking information">
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Car}" Header="Auto" Width="200"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=DateFrom}" Header="Od" Width="100"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=DateTo}" Header="Do" Width="100"/>
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button
+                                                Content="Edytuj"
+                                                Margin="0"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Left">
+                                            </Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button
+                                                Content="Usuń"
+                                                Margin="0"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Left">
+                                            </Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Label FontSize="20">Poprzednie rezerwacje</Label>
+                    <ListView DockPanel.Dock="Top"  ItemsSource="{Binding Bookings.PastBookings}">
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Booking information">
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Car}" Header="Auto" Width="200"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=DateFrom}" Header="Od" Width="100"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=DateTo}" Header="Do" Width="100"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
             </TabItem>
             <TabItem Header="Konto">
                 <Grid>
@@ -65,7 +129,7 @@
                         <Label Content="Email" FontWeight="Normal" FontSize="14"/>
                         <Label Content="Dolaczyl" FontWeight="Normal" FontSize="14"/>
                         <Label Content="Ilosc rezerwacji" FontWeight="Normal" FontSize="14"/>
-                        <Button Content="Wyloguj" Height="30" Width="100" HorizontalAlignment="Left" Margin="0,20,0,0"/>
+                        <Button Content="Wyloguj" Height="30" Width="100" HorizontalAlignment="Left" Margin="0,20,0,0" Command="{Binding LogoutCommand}"/>
                         <Button Content="Zmien haslo" Height="30" Width="100" HorizontalAlignment="Left"/>
                         <Button Content="Usun konto" Height="30" Width="100" HorizontalAlignment="Left"/>
 

@@ -30,6 +30,21 @@ namespace CarRent.Data.Services
             };
         }
 
+        public BookingsModel GetBookingsForUser(int userId)
+        {
+            var pastBookings = _bookingRepository.GetPastBookingsForUser(userId);
+            var currentBookings = _bookingRepository.GetCurrentBookingsForUser(userId);
+            var upcomingBookings = _bookingRepository.GetUpcomingBookingsForUser(userId);
+
+            return new BookingsModel()
+            {
+                PastBookings = MapBookings(pastBookings),
+                CurrentBookings = MapBookings(currentBookings),
+                UpcomingBookings = MapBookings(upcomingBookings)
+            };
+
+        }
+
         private List<BookingModel> MapBookings(List<Booking> bookings)
         {
             return bookings.Select(b => new BookingModel()
