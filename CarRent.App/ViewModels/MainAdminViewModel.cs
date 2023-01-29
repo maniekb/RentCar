@@ -6,6 +6,8 @@ using System.Threading;
 using CarRent.Common.Models;
 using System.Windows.Input;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using CarRent.App.Views;
 
 namespace CarRent.App.ViewModels
 {
@@ -57,7 +59,7 @@ namespace CarRent.App.ViewModels
             CurrentUserAccount = new UserAccountModel();
             LogoutCommand = new ViewModelCommand(p => ExecuteLogoutCommand());
             RemoveBooking = new ViewModelCommand(p => ExecuteRemovBookingCommand(p));
-
+            ShowUserBookings = new ViewModelCommand(p => ExecuteShowUserBookings(p));
             LoadCurrentUserData();
             LoadViewData();
         }
@@ -96,5 +98,10 @@ namespace CarRent.App.ViewModels
             Bookings = _bookingsService.GetBookings();
         }
 
+        private async void ExecuteShowUserBookings(object obj)
+        {  
+            var bookingsPreview = new UserBookingsView(new UserBookingsViewModel((int)obj, _bookingsService));
+            bookingsPreview.Show();
+        }
     }
 }

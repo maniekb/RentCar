@@ -79,6 +79,9 @@
                                             Content="Zobacz wynajmy"
                                             Margin="0"
                                             VerticalAlignment="Center"
+                                            Tag="{Binding Path=Id}"
+                                            Click="previewBookingBtn_Click"
+
                                             Command="{Binding RemoveUserCommand}"
                                             HorizontalAlignment="Center">
                                         </Button>
