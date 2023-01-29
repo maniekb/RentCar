@@ -20,30 +20,8 @@
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Car}" Header="Auto" Width="200"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=DateFrom}" Header="Od" Width="100"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=DateTo}" Header="Do" Width="100"/>
-                                <GridViewColumn>
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button
-                                                Content="Edytuj"
-                                                Margin="0"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Left">
-                                            </Button>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn>
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button
-                                                Content="Usuń"
-                                                Margin="0"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Left">
-                                            </Button>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
+                              
+                                
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -55,25 +33,17 @@
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Car}" Header="Auto" Width="200"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=DateFrom}" Header="Od" Width="100"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=DateTo}" Header="Do" Width="100"/>
+                                
                                 <GridViewColumn>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <Button
-                                                Content="Edytuj"
-                                                Margin="0"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Left">
-                                            </Button>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                                <GridViewColumn>
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <Button
+                                                 x:Name="removeBookingBtn"
                                                 Content="Usuń"
                                                 Margin="0"
+                                                Tag="{Binding Path=Id}"
                                                 VerticalAlignment="Center"
+                                                Click="removeBookingBtn_Click"
                                                 HorizontalAlignment="Left">
                                             </Button>
                                         </DataTemplate>
@@ -108,6 +78,7 @@
                                             Content="Zobacz wynajmy"
                                             Margin="0"
                                             VerticalAlignment="Center"
+                                            Command="{Binding RemoveUserCommand}"
                                             HorizontalAlignment="Center">
                                         </Button>
                                     </DataTemplate>

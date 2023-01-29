@@ -12,5 +12,7 @@ namespace CarRent.Data.Repositories.Abstract
         List<Booking> GetCurrentBookingsForUser(int userID);
         List<Booking> GetPastBookingsForUser(int userID);
         List<Booking> GetUpcomingBookingsForUser(int userID);
+
+        bool RemoveBooking(int bookingId);
     }
 }

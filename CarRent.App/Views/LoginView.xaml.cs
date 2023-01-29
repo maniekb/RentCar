@@ -33,5 +33,7 @@ namespace CarRent.App.Views
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e) { }
+
+ 
     }
 }

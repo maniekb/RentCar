@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using CarRent.Common.Models;
 using System.Windows.Input;
+using System.Linq;
 
 namespace CarRent.App.ViewModels
 {
@@ -16,6 +17,8 @@ namespace CarRent.App.ViewModels
         private readonly ICarService _carService;
         private readonly IBookingService _bookingsService;
         public ICommand LogoutCommand { get; }
+        public ICommand RemoveUser { get;  }
+        public ICommand ShowUserBookings { get; }
 
         public UserAccountModel CurrentUserAccount
         {
@@ -33,7 +36,18 @@ namespace CarRent.App.ViewModels
 
         public List<CarModel> Cars { get; set; }
         public List<UserModel> Users { get; set; }
-        public BookingsModel Bookings { get; set; }
+        private BookingsModel _bookings;
+        public BookingsModel Bookings {
+            get
+            {
+                return _bookings;
+            }
+            set
+            {
+                _bookings = value;
+                OnPropertyChanged(nameof(Bookings));
+            }
+        }
 
         public MainAdminViewModel(IUserService userService, ICarService carService, IBookingService bookingsService)
         {
@@ -42,6 +56,7 @@ namespace CarRent.App.ViewModels
             _bookingsService = bookingsService;
             CurrentUserAccount = new UserAccountModel();
             LogoutCommand = new ViewModelCommand(p => ExecuteLogoutCommand());
+            RemoveUser = new ViewModelCommand(p => ExecuteRemoveUserCommand(p));
 
             LoadCurrentUserData();
             LoadViewData();
@@ -72,6 +87,14 @@ namespace CarRent.App.ViewModels
         {
             App thisApp = (App)App.Current;
             thisApp.ShowLogin();
+        }
+
+        private async void ExecuteRemoveUserCommand(object obj)
+        {
+            var first = Bookings.UpcomingBookings.First(x => x.Id == (int)obj);
+            
+            _bookingsService.RemoveBooking((int)obj);
+            Bookings = _bookingsService.GetBookings();
         }
 
     }

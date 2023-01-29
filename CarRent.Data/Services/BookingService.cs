@@ -49,11 +49,17 @@ namespace CarRent.Data.Services
         {
             return bookings.Select(b => new BookingModel()
             {
+                Id = b.Id,
                 User = $"{b.User.Name} {b.User.LastName} {b.User.Email}",
                 Car = $"{b.Car.Brand} {b.Car.Model} {b.Car.Number}",
                 DateFrom = b.DateFrom.ToString("dd-MM-yyyy"),
                 DateTo = b.DateTo.ToString("dd-MM-yyyy")
             }).ToList();
+        }
+
+        public void RemoveBooking(int bookingId)
+        {
+            _bookingRepository.RemoveBooking(bookingId);
         }
     }
 }

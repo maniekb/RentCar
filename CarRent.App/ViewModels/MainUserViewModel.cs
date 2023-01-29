@@ -18,6 +18,8 @@ namespace CarRent.App.ViewModels
         public ICommand LogoutCommand { get; }
         public BookingsModel Bookings { get; set; }
 
+        public ICommand RemoveBindingCommand { get; }
+
         public UserAccountModel CurrentUserAccount
         {
             get
@@ -37,6 +39,7 @@ namespace CarRent.App.ViewModels
             _userService = userService;
             CurrentUserAccount = new UserAccountModel();
             LogoutCommand = new ViewModelCommand(p => ExecuteLogoutCommand());
+            RemoveBindingCommand = new ViewModelCommand(p => ExecuteRemoveBookingCommand(p));
             _bookingsService = bookingsService;
 
 
@@ -66,5 +69,9 @@ namespace CarRent.App.ViewModels
             thisApp.ShowLogin();
         }
 
+        private async void ExecuteRemoveBookingCommand(object bookingId)
+        {
+            
+        }
     }
 }
