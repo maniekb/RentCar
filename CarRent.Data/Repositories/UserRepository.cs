@@ -31,5 +31,24 @@ namespace CarRent.Data.Repositories
         {
             return _context.Users.Where(x => !x.IsAdmin).ToList();
         }
+
+        public bool RemoveUser(int userId)
+        {
+            var local = _context.Set<User>()
+               .Local
+               .FirstOrDefault(entry => entry.Id.Equals(userId));
+
+            if (local != null)
+            {
+                // detach
+                _context.Entry(local).State = EntityState.Detached;
+                _context.Users.Remove(local);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+
     }
 }

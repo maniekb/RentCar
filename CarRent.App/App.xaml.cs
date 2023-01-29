@@ -55,6 +55,7 @@ namespace CarRent.App
                     if (isAdmin)
                     {
                         mainWindow = ServiceProvider.GetRequiredService<MainAdminView>();
+
                     }
                     else
                     {
