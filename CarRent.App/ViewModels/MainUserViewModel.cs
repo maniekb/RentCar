@@ -25,7 +25,6 @@ namespace CarRent.App.ViewModels
         private readonly ICarService _carService;
 
         public ICommand LogoutCommand { get; }
-        public ICommand HandleCarSelectionCommand { get; }
         public BookingsModel Bookings { get; set; }
 
         private List<CarModel> cars;
