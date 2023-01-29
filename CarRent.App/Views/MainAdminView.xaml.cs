@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using CarRent.App.ViewModels;
 
 namespace CarRent.App.Views
@@ -13,6 +14,11 @@ namespace CarRent.App.Views
         {
             InitializeComponent();
             DataContext = mainAdminViewModel;
+        }
+
+        private void removeBookingBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainAdminViewModel)DataContext).RemoveBooking.Execute(((Button)sender).Tag);
         }
     }
 }

@@ -8,6 +8,8 @@ namespace CarRent.Data.Services.Abstract
     public interface IBookingService
     {
         BookingsModel GetBookings();
-        BookingsModel GetBookingsForUser(int id);
+        BookingsModel GetBookingsForUser(int userId);
+
+        void RemoveBooking(int bookingId);
     }
 }

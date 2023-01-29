@@ -45,6 +45,12 @@ namespace CarRent.App.Views
             Application.Current.Shutdown();
         }
 
+        private void removeBookingBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainUserViewModel)DataContext).RemoveBooking.Execute(((Button)sender).Tag);
+        }
+
+
     }
 
 }
