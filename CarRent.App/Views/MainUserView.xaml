@@ -6,106 +6,300 @@
         xmlns:viewModels="clr-namespace:CarRent.App.ViewModels"
         mc:Ignorable="d"
         Title="MainUserWindowView" Height="450" Width="800"
-        
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown"
+        >
+    <Border CornerRadius="12">
+        <Border CornerRadius="10"                    
+                BorderThickness="2"
+                Opacity="0.95">
 
-    <Grid>
-        <TabControl>
-            <TabItem Header="Lista Aut">
-                <DockPanel>
-                    <ListBox Name="mcListBox" DockPanel.Dock="Left" >
-                        <ListBoxItem>Orange</ListBoxItem>
-                        <ListBoxItem>Green</ListBoxItem>
-                        <ListBoxItem>Blue</ListBoxItem>
-                        <ListBoxItem>Gray</ListBoxItem>
-                        <ListBoxItem>LightGray</ListBoxItem>
-                        <ListBoxItem>Red</ListBoxItem>
-                    </ListBox>
-                    <Grid>
-                        <StackPanel>
-                            <Label Content="Model + Marka" FontWeight="Bold" FontSize="20"/>
-                            <Label Content="Typ" FontWeight="Normal" FontSize="14"/>
-                            <Label Content="Rok produkcji" FontWeight="Normal" FontSize="14"/>
-                            <Label Content="Kolor" FontWeight="Normal" FontSize="14"/>
-                            <Label Content="Silnik" FontWeight="Normal" FontSize="14"/>
-                            <Label Content="Rodzaj skrzyni biegow" FontWeight="Normal" FontSize="14"/>
-                            <Label Content="Przebieg" FontWeight="Normal" FontSize="14"/>
-                            <Label Content="Naped" FontWeight="Normal" FontSize="14"/>
-                            <Label Content="Rodzaj paliwa" FontWeight="Normal" FontSize="14"/>
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Color="#060531" Offset="0"/>
+                <GradientStop Color="#1B1448" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
 
-                        </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
+                <Grid Grid.Row="0">
 
-                        <Button Content="Rezerwuj" HorizontalAlignment="Left" Margin="600,346,0,0" VerticalAlignment="Top" Width="100" Height="40"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
 
-                    </Grid>
-                </DockPanel>
-            </TabItem>
-            <TabItem Header="Nadchodzace wynajmy">
-                <StackPanel>
-                    <Label FontSize="20">Aktualne rezerwacje</Label>
-                    <ListView DockPanel.Dock="Top" ItemsSource="{Binding Bookings.CurrentBookings}">
-                        <ListView.View>
-                            <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Booking information">
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=Car}" Header="Auto" Width="200"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=DateFrom}" Header="Od" Width="100"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=DateTo}" Header="Do" Width="100"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <Label FontSize="20">Nadchodzące rezerwacje</Label>
-                    <ListView DockPanel.Dock="Top"  ItemsSource="{Binding Bookings.UpcomingBookings}">
-                        <ListView.View>
-                            <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Booking information">
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=Car}" Header="Auto" Width="200"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=DateFrom}" Header="Od" Width="100"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=DateTo}" Header="Do" Width="100"/>
-                                <GridViewColumn>
-                                    <GridViewColumn.CellTemplate >
-                                        <DataTemplate>
-                                            <Button
-                                                Content="Usuń"
-                                                Margin="0"
-                                                Tag="{Binding BindsDirectlyToSource=True}"
-                                                VerticalAlignment="Center"
-                                                Command="{Binding DataContext.RemoveBindingCommand}"
-                                                HorizontalAlignment="Left">
-                                            </Button>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <Label FontSize="20">Poprzednie rezerwacje</Label>
-                    <ListView DockPanel.Dock="Top"  ItemsSource="{Binding Bookings.PastBookings}">
-                        <ListView.View>
-                            <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Booking information">
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=Car}" Header="Auto" Width="200"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=DateFrom}" Header="Od" Width="100"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=DateTo}" Header="Do" Width="100"/>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </StackPanel>
-            </TabItem>
-            <TabItem Header="Konto">
-                <Grid>
-                    <StackPanel>
-                        <Label Content="User user" FontWeight="Bold" FontSize="20"/>
-                        <Label Content="Email" FontWeight="Normal" FontSize="14"/>
-                        <Label Content="Dolaczyl" FontWeight="Normal" FontSize="14"/>
-                        <Label Content="Ilosc rezerwacji" FontWeight="Normal" FontSize="14"/>
-                        <Button Content="Wyloguj" Height="30" Width="100" HorizontalAlignment="Left" Margin="0,20,0,0" Command="{Binding LogoutCommand}"/>
-                        <Button Content="Zmien haslo" Height="30" Width="100" HorizontalAlignment="Left"/>
-                        <Button Content="Usun konto" Height="30" Width="100" HorizontalAlignment="Left"/>
+                    <TextBlock Foreground="DarkGray"
+                               FontSize="10"
+                               FontFamily="Montserrat"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="10,0,0,0">
+                            <Run Text="Witaj, "/>
+                            <Run Text="{Binding CurrentUserAccount.DisplayName}"/>
+                    </TextBlock>
 
+                    <Button x:Name="btnMinimize"                           
+                            BorderThickness="0"
+                            Content="-"
+                            Foreground="White"
+                            FontSize="16"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            Grid.Column="1"
+                            Click="btnMinimize_Click">
 
-                    </StackPanel>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#28AEED"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#278BEF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
+
+                    <Button x:Name="btnClose"                          
+                            BorderThickness="0"
+                            Content="X"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Montserrat"
+                            Cursor="Hand"
+                            Grid.Column="2"
+                            Click="btnClose_Click">
+
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#DA34AE"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#C62DAE"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </Grid>
 
-            </TabItem>
-        </TabControl>
+                <TabControl Grid.Row="1" Background="Transparent" Foreground="DarkGray" BorderThickness="0" Margin="0,15">
+                    <TabControl.Resources>
+                        <Style TargetType="TabItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="TabItem">
+                                        <Border Name="Border" BorderThickness="1,1,1,1" BorderBrush="DarkGray" CornerRadius="4,4,4,4" Margin="3,0">
+                                            <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="25,5"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="False">
+                                                <Setter TargetName="Border" Property="Background" Value="DarkGray" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TabControl.Resources>
 
-    </Grid>
+
+                    <TabItem Header="Lista Aut"  BorderThickness="0">
+                        <DockPanel Margin="0,15">
+                            <ListBox  Margin="0 0 25 0" BorderThickness="0" Foreground="DarkGray" Background="Transparent" Name="mcListBox" DockPanel.Dock="Left" ItemsSource="{Binding Cars}" SelectedItem="{Binding Path=SelectedCar,  UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                            <Run Text="{Binding Brand}"/>
+                                            <Run Text="{Binding Model}"/>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="0" FontWeight="Bold" FontSize="20" Margin="0 10">
+                                    <Label.Content>
+                                        <TextBlock Foreground="DarkGray">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} {1}">
+                                                    <Binding Path="SelectedCar.Brand" />
+                                                    <Binding Path="SelectedCar.Model" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Label.Content>
+                                </Label>
+
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
+                                    </Grid.RowDefinitions>
+
+                                    <Label Foreground="DarkGray" Grid.Row="0" Grid.Column="0" Content="Typ:" FontWeight="Normal" FontSize="14"/>
+                                    <Label Foreground="DarkGray" Grid.Row="0" Grid.Column="1" Content="{Binding Path=SelectedCar.CarClass}" FontWeight="Normal" FontSize="14"/>
+
+                                    <Label Foreground="DarkGray" Grid.Row="1" Grid.Column="0" Content="Rok produkcji:" FontWeight="Normal" FontSize="14"/>
+                                    <Label Foreground="DarkGray" Grid.Row="1" Grid.Column="1" Content="{Binding Path=SelectedCar.YearOfProduction}" FontWeight="Normal" FontSize="14"/>
+
+                                    <Label Foreground="DarkGray" Grid.Row="2" Grid.Column="0" Content="Ilość paliwa:" FontWeight="Normal" FontSize="14"/>
+                                    <Label Foreground="DarkGray" Grid.Row="2" Grid.Column="1" Content="{Binding Path=SelectedCar.Tank}" FontWeight="Normal" FontSize="14"/>
+                                </Grid>
+                                <Button  Grid.Row="2" Content="Rezerwuj" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="100" Height="40" Margin="500,20,0,20"/>
+                            </Grid>
+                        </DockPanel>
+                    </TabItem>
+                    <TabItem Header="Nadchodzace wynajmy">
+                        <StackPanel Margin="0,15">
+                            <Label FontSize="20"  Foreground="DarkGray">Aktualne rezerwacje</Label>
+                            <ListView DockPanel.Dock="Top" ItemsSource="{Binding Bookings.CurrentBookings}">
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Booking information">
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Car}" Header="Auto" Width="200"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=DateFrom}" Header="Od" Width="100"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=DateTo}" Header="Do" Width="100"/>
+                                        <GridViewColumn>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                Content="Edytuj"
+                                                Margin="0"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Left">
+                                                    </Button>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                Content="Usuń"
+                                                Margin="0"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Left">
+                                                    </Button>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <Label FontSize="20"  Foreground="DarkGray">Nadchodzące rezerwacje</Label>
+                            <ListView DockPanel.Dock="Top"  ItemsSource="{Binding Bookings.UpcomingBookings}">
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Booking information">
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Car}" Header="Auto" Width="200"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=DateFrom}" Header="Od" Width="100"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=DateTo}" Header="Do" Width="100"/>
+                                        <GridViewColumn>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                Content="Edytuj"
+                                                Margin="0"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Left">
+                                                    </Button>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                Content="Usuń"
+                                                Margin="0"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Left">
+                                                    </Button>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <Label FontSize="20"  Foreground="DarkGray">Poprzednie rezerwacje</Label>
+                            <ListView DockPanel.Dock="Top"  ItemsSource="{Binding Bookings.PastBookings}">
+                                <ListView.View>
+                                    <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Booking information">
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=Car}" Header="Auto" Width="200"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=DateFrom}" Header="Od" Width="100"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Path=DateTo}" Header="Do" Width="100"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="Konto">
+                        <Grid Margin="0,15">
+                            <StackPanel>
+                                <Label Foreground="DarkGray" Content="{Binding CurrentUserAccount.DisplayName}" FontWeight="Bold" FontSize="20"/>
+                                <Label Foreground="DarkGray" Content="Email" FontWeight="Normal" FontSize="14"/>
+                                <Label Foreground="DarkGray" Content="Dolaczyl" FontWeight="Normal" FontSize="14"/>
+                                <Label Foreground="DarkGray" Content="Ilosc rezerwacji" FontWeight="Normal" FontSize="14"/>
+                                <Button Content="Wyloguj" Height="30" Width="100" HorizontalAlignment="Left" Margin="0,20,0,0" Command="{Binding LogoutCommand}"/>
+                                <Button Content="Zmien haslo" Height="30" Width="100" HorizontalAlignment="Left"/>
+                                <Button Content="Usun konto" Height="30" Width="100" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+
+            </Grid>
+        </Border>
+    </Border>
 </Window>
