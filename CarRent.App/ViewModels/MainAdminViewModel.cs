@@ -19,7 +19,8 @@ namespace CarRent.App.ViewModels
         private readonly ICarService _carService;
         private readonly IBookingService _bookingsService;
         public ICommand LogoutCommand { get; }
-        public ICommand RemoveBooking { get;  }
+        public ICommand RemoveBooking { get; }
+        public ICommand RemoveUser { get; }
         public ICommand ShowUserBookings { get; }
 
         public UserAccountModel CurrentUserAccount
@@ -37,7 +38,18 @@ namespace CarRent.App.ViewModels
         }
 
         public List<CarModel> Cars { get; set; }
-        public List<UserModel> Users { get; set; }
+        private List<UserModel> _users;
+        public List<UserModel> Users { 
+            get
+            {
+                return _users;
+            }
+            set
+            {
+                _users = value;
+                OnPropertyChanged(nameof(Users));
+            }
+        }
         private BookingsModel _bookings;
         public BookingsModel Bookings {
             get
@@ -59,6 +71,7 @@ namespace CarRent.App.ViewModels
             CurrentUserAccount = new UserAccountModel();
             LogoutCommand = new ViewModelCommand(p => ExecuteLogoutCommand());
             RemoveBooking = new ViewModelCommand(p => ExecuteRemovBookingCommand(p));
+            RemoveUser = new ViewModelCommand(p => ExecuteRemoveUser(p));
             ShowUserBookings = new ViewModelCommand(p => ExecuteShowUserBookings(p));
             LoadCurrentUserData();
             LoadViewData();
@@ -103,5 +116,12 @@ namespace CarRent.App.ViewModels
             var bookingsPreview = new UserBookingsView(new UserBookingsViewModel((int)obj, _bookingsService));
             bookingsPreview.Show();
         }
+
+        private async void ExecuteRemoveUser(object obj)
+        {
+            _userService.RemoveUser((int)obj);
+            Users = _userService.GetAllNonAdmin();
+        }
+
     }
 }

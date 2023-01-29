@@ -69,5 +69,10 @@ namespace CarRent.Data.Services
                 Name = u.Name
             }).ToList();
         }
+
+        public bool RemoveUser(int userId)
+        {
+            return _userRepository.RemoveUser(userId);
+        }
     }
 }

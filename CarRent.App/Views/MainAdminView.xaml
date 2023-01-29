@@ -94,6 +94,8 @@
                                         <Button
                                             Content="Usun konto"
                                             Margin="0"
+                                            Tag="{Binding Path=Id}"
+                                            Click="removeUserBtn_Click"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Center">
                                         </Button>

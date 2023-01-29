@@ -11,5 +11,7 @@ namespace CarRent.Data.Services.Abstract
         Task<AuthenticationResult> AuthenticateUser(NetworkCredential networkCredential);
         UserModel GetByEmail(string email);
         List<UserModel> GetAllNonAdmin();
+
+        bool RemoveUser(int userId);
     }
 }
