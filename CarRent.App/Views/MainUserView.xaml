@@ -18,12 +18,12 @@
                 BorderThickness="2"
                 Opacity="0.95">
 
-        <Border.Background>
-            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                <GradientStop Color="#060531" Offset="0"/>
-                <GradientStop Color="#1B1448" Offset="1"/>
-            </LinearGradientBrush>
-        </Border.Background>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="#060531" Offset="0"/>
+                    <GradientStop Color="#1B1448" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -145,7 +145,6 @@
                         </Style>
                     </TabControl.Resources>
 
-
                     <TabItem Header="Lista Aut"  BorderThickness="0">
                         <DockPanel Margin="0,15">
                             <ListBox  Margin="0 0 25 0" BorderThickness="0" Foreground="DarkGray" Background="Transparent" Name="mcListBox" DockPanel.Dock="Left" ItemsSource="{Binding Cars}" SelectedItem="{Binding Path=SelectedCar,  UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
@@ -161,8 +160,8 @@
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
-                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="150" />
+                                    <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
 
                                 <Label Grid.Row="0" FontWeight="Bold" FontSize="20" Margin="0 10">
@@ -198,11 +197,57 @@
                                     <Label Foreground="DarkGray" Grid.Row="2" Grid.Column="0" Content="Ilość paliwa:" FontWeight="Normal" FontSize="14"/>
                                     <Label Foreground="DarkGray" Grid.Row="2" Grid.Column="1" Content="{Binding Path=SelectedCar.Tank}" FontWeight="Normal" FontSize="14"/>
                                 </Grid>
-                                <Button  Grid.Row="2" Content="Rezerwuj" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="100" Height="40" Margin="500,20,0,20"/>
+
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="250"/>
+                                        <ColumnDefinition Width="250"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="30"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Grid.Row="0" Foreground="DarkGray" Content="Data odbioru:" FontWeight="Normal" FontSize="16"/>
+                                        <DatePicker Grid.Row="1" Height="24" HorizontalAlignment="Left"  Width="200" />
+                                        
+                                        <Grid Grid.Row="2" Margin="0,10,0,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="135"/>
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0" Foreground="DarkGray" Content="Koszt całkowity: " FontWeight="Normal" FontSize="18"/>
+                                            <Label Grid.Column="1" Foreground="DarkGray" Content="152,20 zł" FontWeight="Medium" FontSize="18"/>
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="30"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Grid.Row="0" Foreground="DarkGray" Content="Data zwrotu:" FontWeight="Normal" FontSize="16"/>
+                                        <DatePicker Grid.Row="1" Height="24" HorizontalAlignment="Left"  Width="200" />
+                                    </Grid>
+
+                                    <Grid Grid.Column="2">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Button Grid.Row="1" Content="Rezerwuj" HorizontalAlignment="Right"  VerticalAlignment="Center" Width="100" Height="40" Margin="0,0,20,0" Command="{Binding CreateBooking}"/>
+                                    </Grid>
+                                    
+                                </Grid>
                             </Grid>
                         </DockPanel>
                     </TabItem>
-                    <TabItem Header="Nadchodzace wynajmy">
+                    <TabItem Header="Nadchodzace wynajmy" Height="28" VerticalAlignment="Top">
                         <StackPanel Margin="0,15">
                             <Label FontSize="20"  Foreground="DarkGray">Aktualne rezerwacje</Label>
                             <ListView DockPanel.Dock="Top" ItemsSource="{Binding Bookings.CurrentBookings}">
@@ -211,18 +256,7 @@
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=Car}" Header="Auto" Width="200"/>
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=DateFrom}" Header="Od" Width="100"/>
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=DateTo}" Header="Do" Width="100"/>
-                                        <GridViewColumn>
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Button
-                                                Content="Edytuj"
-                                                Margin="0"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Left">
-                                                    </Button>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
+
                                         <GridViewColumn>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
@@ -245,24 +279,15 @@
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=Car}" Header="Auto" Width="200"/>
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=DateFrom}" Header="Od" Width="100"/>
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=DateTo}" Header="Do" Width="100"/>
-                                        <GridViewColumn>
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Button
-                                                Content="Edytuj"
-                                                Margin="0"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Left">
-                                                    </Button>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
+
                                         <GridViewColumn>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <Button
                                                 Content="Usuń"
                                                 Margin="0"
+                                                Tag="{Binding Path=Id}"
+                                                Click="removeBookingBtn_Click"
                                                 VerticalAlignment="Center"
                                                 HorizontalAlignment="Left">
                                                     </Button>
@@ -297,8 +322,8 @@
                             </StackPanel>
                         </Grid>
                     </TabItem>
-                </TabControl>
 
+                </TabControl>
             </Grid>
         </Border>
     </Border>

@@ -25,8 +25,23 @@ namespace CarRent.App.ViewModels
         private readonly ICarService _carService;
 
         public ICommand LogoutCommand { get; }
-        public BookingsModel Bookings { get; set; }
+        private BookingsModel _bookings;
+        public BookingsModel Bookings
+        {
+            get
+            {
+                return _bookings;
+            }
+            set
+            {
+                _bookings = value;
+                OnPropertyChanged(nameof(Bookings));
+            }
+        }
+        public ICommand RemoveBooking { get; }
+        public ICommand CreateBooking { get; }
 
+        public ICommand RemoveBindingCommand { get; }
         private List<CarModel> cars;
         public List<CarModel> Cars
         {
@@ -58,11 +73,15 @@ namespace CarRent.App.ViewModels
 
         public MainUserViewModel(IUserService userService, IBookingService bookingsService, ICarService carService)
         {
-            _userService = userService;
             CurrentUserAccount = new UserAccountModel();
+
             LogoutCommand = new ViewModelCommand(p => ExecuteLogoutCommand());
-            _bookingsService = bookingsService;
+            CreateBooking = new ViewModelCommand(p => HandleCreateBooking());
+            RemoveBooking = new ViewModelCommand(p => ExecuteRemovBookingCommand(p));
+
             _carService = carService;
+            _userService = userService;
+            _bookingsService = bookingsService;
 
             LoadCurrentUserData();
         }
@@ -73,6 +92,7 @@ namespace CarRent.App.ViewModels
             if (user != null)
             {
                 CurrentUserAccount.Email = user.Email;
+                CurrentUserAccount.Id = user.Id;
                 CurrentUserAccount.DisplayName = $"{user.Name} {user.LastName}";
 
                 Bookings = _bookingsService.GetBookingsForUser(user.Id);
@@ -95,6 +115,19 @@ namespace CarRent.App.ViewModels
         {
             App thisApp = (App)App.Current;
             thisApp.ShowLogin();
+        }
+
+        private async void ExecuteRemovBookingCommand(object obj)
+        {
+
+            _bookingsService.RemoveBooking((int)obj);
+            Bookings = _bookingsService.GetBookings();
+        }
+
+
+        private  void HandleCreateBooking()
+        {
+             _bookingsService.CreateBooking(CurrentUserAccount.Id, SelectedCar.Id, DateTime.Now, DateTime.Now.AddDays(10));
         }
 
     }
