@@ -42,8 +42,9 @@
                                                 Content="Usuń"
                                                 Margin="0"
                                                 Tag="{Binding Path=Id}"
-                                                VerticalAlignment="Center"
                                                 Click="removeBookingBtn_Click"
+
+                                                VerticalAlignment="Center"
                                                 HorizontalAlignment="Left">
                                             </Button>
                                         </DataTemplate>

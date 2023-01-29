@@ -202,7 +202,7 @@
                             </Grid>
                         </DockPanel>
                     </TabItem>
-                    <TabItem Header="Nadchodzace wynajmy">
+                    <TabItem Header="Nadchodzace wynajmy" Height="28" VerticalAlignment="Top">
                         <StackPanel Margin="0,15">
                             <Label FontSize="20"  Foreground="DarkGray">Aktualne rezerwacje</Label>
                             <ListView DockPanel.Dock="Top" ItemsSource="{Binding Bookings.CurrentBookings}">
@@ -211,18 +211,7 @@
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=Car}" Header="Auto" Width="200"/>
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=DateFrom}" Header="Od" Width="100"/>
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=DateTo}" Header="Do" Width="100"/>
-                                        <GridViewColumn>
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Button
-                                                Content="Edytuj"
-                                                Margin="0"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Left">
-                                                    </Button>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
+                                       
                                         <GridViewColumn>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
@@ -245,24 +234,15 @@
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=Car}" Header="Auto" Width="200"/>
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=DateFrom}" Header="Od" Width="100"/>
                                         <GridViewColumn DisplayMemberBinding="{Binding Path=DateTo}" Header="Do" Width="100"/>
-                                        <GridViewColumn>
-                                            <GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <Button
-                                                Content="Edytuj"
-                                                Margin="0"
-                                                VerticalAlignment="Center"
-                                                HorizontalAlignment="Left">
-                                                    </Button>
-                                                </DataTemplate>
-                                            </GridViewColumn.CellTemplate>
-                                        </GridViewColumn>
+                                        
                                         <GridViewColumn>
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <Button
                                                 Content="Usuń"
                                                 Margin="0"
+                                                Tag="{Binding Path=Id}"
+                                                Click="removeBookingBtn_Click"
                                                 VerticalAlignment="Center"
                                                 HorizontalAlignment="Left">
                                                     </Button>

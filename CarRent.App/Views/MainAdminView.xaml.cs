@@ -18,7 +18,7 @@ namespace CarRent.App.Views
 
         private void removeBookingBtn_Click(object sender, RoutedEventArgs e)
         {
-            ((MainAdminViewModel)DataContext).RemoveUser.Execute(((Button)sender).Tag);
+            ((MainAdminViewModel)DataContext).RemoveBooking.Execute(((Button)sender).Tag);
         }
     }
 }
