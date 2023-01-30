@@ -25,6 +25,9 @@ namespace CarRent.Data.Migrations
                 table: "Cars",
                 nullable: false,
                 defaultValue: 0m);
+
+            migrationBuilder.Sql("UPDATE \"Cars\" SET \"FuelType\" = 0;");
+            migrationBuilder.Sql("UPDATE \"Cars\" SET \"PricePrDay\" = 100.00;");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

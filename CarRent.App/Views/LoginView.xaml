@@ -6,7 +6,7 @@
         xmlns:viewModels="clr-namespace:CarRent.App.ViewModels"
         xmlns:customControls="clr-namespace:CarRent.App.CustomControls"
         mc:Ignorable="d"
-        Title="LoginView" Height="550" Width="800"
+        Title="Logowanie" Height="550" Width="800"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"

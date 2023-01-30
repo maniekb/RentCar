@@ -194,8 +194,8 @@
                                     <Label Foreground="DarkGray" Grid.Row="1" Grid.Column="0" Content="Rok produkcji:" FontWeight="Normal" FontSize="14"/>
                                     <Label Foreground="DarkGray" Grid.Row="1" Grid.Column="1" Content="{Binding Path=SelectedCar.YearOfProduction}" FontWeight="Normal" FontSize="14"/>
 
-                                    <Label Foreground="DarkGray" Grid.Row="2" Grid.Column="0" Content="Ilość paliwa:" FontWeight="Normal" FontSize="14"/>
-                                    <Label Foreground="DarkGray" Grid.Row="2" Grid.Column="1" Content="{Binding Path=SelectedCar.Tank}" FontWeight="Normal" FontSize="14"/>
+                                    <Label Foreground="DarkGray" Grid.Row="2" Grid.Column="0" Content="Rodzaj paliwa:" FontWeight="Normal" FontSize="14"/>
+                                    <Label Foreground="DarkGray" Grid.Row="2" Grid.Column="1" Content="{Binding Path=SelectedCar.FuelType}" FontWeight="Normal" FontSize="14"/>
                                 </Grid>
 
                                 <Grid Grid.Row="2">

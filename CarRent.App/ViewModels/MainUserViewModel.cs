@@ -108,7 +108,6 @@ namespace CarRent.App.ViewModels
         {
             Cars = _carService.GetAll();
             SelectedCar = Cars[0];
-
         }
 
         private async void ExecuteLogoutCommand()
@@ -119,7 +118,6 @@ namespace CarRent.App.ViewModels
 
         private async void ExecuteRemovBookingCommand(object obj)
         {
-
             _bookingsService.RemoveBooking((int)obj);
             Bookings = _bookingsService.GetBookings();
         }

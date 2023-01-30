@@ -1,21 +1,7 @@
-﻿using System;
-using System.Configuration;
-using System.IO;
-using System.Threading;
+﻿using CarRent.App.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using CarRent.App.ViewModels;
-using CarRent.App.Views;
-using CarRent.Common.Authentication.Constants;
-using CarRent.Data.Persistence;
-using CarRent.Data.Repositories;
-using CarRent.Data.Repositories.Abstract;
-using CarRent.Data.Services;
-using CarRent.Data.Services.Abstract;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CarRent.App.Views
 {
@@ -49,8 +35,5 @@ namespace CarRent.App.Views
         {
             ((MainUserViewModel)DataContext).RemoveBooking.Execute(((Button)sender).Tag);
         }
-
-
     }
-
 }

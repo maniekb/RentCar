@@ -33,5 +33,10 @@ namespace CarRent.App.Views
 
         }
 
+        private void showAddNewCarBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainAdminViewModel)DataContext).ShowNewCarForm.Execute(((Button)sender).Tag);
+
+        }
     }
 }
