@@ -7,6 +7,7 @@
         public string Model { get; set; }
         public int YearOfProduction { get; set; }
         public string CarClass { get; set; }
-        public string Tank { get; set; }
+        public string FuelType { get; set; }
+        public decimal PricePerDay { get; set; }
     }
 }

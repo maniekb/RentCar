@@ -10,7 +10,7 @@ namespace CarRent.Domain.Entities
         public string Model { get; set; }
         public int YearOfProduction { get; set; }
         public CarClassEnum CarClass { get; set; }
-        public int FuelInTank { get; set; }
-        public int TankCapacity { get; set; }
+        public FuelTypeEnum FuelType { get; set; }
+        public decimal PricePerDay { get; set; }
     }
 }

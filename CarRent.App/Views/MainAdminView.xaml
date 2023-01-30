@@ -116,7 +116,8 @@
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Model}" Header="Model" Width="100"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=YearOfProduction}" Header="Rok produkcji" Width="100"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=CarClass}" Header="Typ" Width="100"/>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=Tank}" Header="Paliwo" Width="100"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=FuelType}" Header="Rodzaj paliwa" Width="100"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=PricePerDay}" Header="Cena dzienna" Width="100"/>
                             </GridView>
 
                         </ListView.View>

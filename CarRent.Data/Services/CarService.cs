@@ -28,8 +28,9 @@ namespace CarRent.Data.Services
                 Brand = c.Brand,
                 Model = c.Model,
                 YearOfProduction = c.YearOfProduction,
-                CarClass = CarClassHelper.ResolveCarClass(c.CarClass),
-                Tank = $"{c.FuelInTank}/{c.TankCapacity}L"
+                CarClass = CarHelper.ResolveCarClass(c.CarClass),
+                FuelType = CarHelper.ResolveFuelType(c.FuelType),
+                PricePerDay = c.PricePerDay
             }).ToList();
         }
     }
