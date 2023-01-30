@@ -13,6 +13,10 @@ using CarRent.Data.Services.Abstract;
 using CarRent.Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.ComponentModel;
+using CarRent.Data.Migrations;
+using System.Xml.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace CarRent.App.ViewModels
 {
@@ -40,8 +44,8 @@ namespace CarRent.App.ViewModels
         }
         public ICommand RemoveBooking { get; }
         public ICommand CreateBooking { get; }
-
         public ICommand RemoveBindingCommand { get; }
+
         private List<CarModel> cars;
         public List<CarModel> Cars
         {
@@ -54,6 +58,41 @@ namespace CarRent.App.ViewModels
         {
             get { return _selectedCar; }
             set { _selectedCar = value; OnPropertyChanged("SelectedCar"); }
+        }
+
+
+        private DateTime _dateFrom = DateTime.Now;
+
+        private string _totalPrice = "0,00 zł";
+
+        public string TotalPrice
+        {
+            get { return _totalPrice; }
+            set { _totalPrice = $"{value} zł"; OnPropertyChanged("TotalPrice"); }
+
+        }
+
+        public DateTime DateFrom
+        {
+            get { return _dateFrom; }
+            set { _dateFrom = value; TotalPrice = _bookingsService.GetCalculatedPrice(SelectedCar.PricePerDay, value, DateTo).ToString("N2"); OnPropertyChanged("DateFrom"); }
+
+        }
+
+
+        private DateTime _dateTo = DateTime.Now.AddDays(1);
+        public DateTime DateTo
+        {
+            get { return _dateTo; }
+            set { _dateTo = value; TotalPrice = _bookingsService.GetCalculatedPrice(SelectedCar.PricePerDay, DateFrom, value).ToString("N2"); OnPropertyChanged("DateTo"); }
+        }
+
+        private int _selectedIndex = 0;
+
+        public int SelectedIndex
+        {
+            get { return _selectedIndex; }
+            set { _selectedIndex = value; OnPropertyChanged("SelectedIndex"); }
         }
 
 
@@ -108,7 +147,7 @@ namespace CarRent.App.ViewModels
         {
             Cars = _carService.GetAll();
             SelectedCar = Cars[0];
-
+            TotalPrice = _bookingsService.GetCalculatedPrice(SelectedCar.PricePerDay, DateFrom, DateTo).ToString("N2");
         }
 
         private async void ExecuteLogoutCommand()
@@ -124,10 +163,11 @@ namespace CarRent.App.ViewModels
             Bookings = _bookingsService.GetBookings();
         }
 
-
         private  void HandleCreateBooking()
         {
-             _bookingsService.CreateBooking(CurrentUserAccount.Id, SelectedCar.Id, DateTime.Now, DateTime.Now.AddDays(10));
+             _bookingsService.CreateBooking(CurrentUserAccount.Id, SelectedCar, DateFrom, DateTo);
+            Bookings = _bookingsService.GetBookingsForUser(CurrentUserAccount.Id);
+            SelectedIndex = 1;
         }
 
     }

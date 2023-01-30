@@ -17,5 +17,7 @@ namespace CarRent.Domain.Entities
 
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
+        public decimal TotalPrice { get; set; }
+
     }
 }

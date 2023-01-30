@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using CarRent.Common.Models;
 using CarRent.Data.Migrations;
+using CarRent.Data.Models;
 using CarRent.Data.Repositories.Abstract;
 using CarRent.Data.Services.Abstract;
 using CarRent.Domain.Entities;
@@ -67,7 +68,7 @@ namespace CarRent.Data.Services
         }
 
 
-        private bool isCarAvailable(int carId, DateTime dateFrom, DateTime dateTo)
+        private bool CheckIsCarAvailable(int carId, DateTime dateFrom, DateTime dateTo)
         {
 
             if (dateFrom.CompareTo(dateTo) >= 0)
@@ -77,20 +78,28 @@ namespace CarRent.Data.Services
 
             var foundBookings = _bookingRepository.GetCarReservationsForDateRange(carId, dateFrom, dateTo);
 
-            if(foundBookings.Count > 0)
-            {
-                return false;
-            }
+            return foundBookings != null ? false : true;
 
-            return true;
+            
         }
 
 
-        public async void CreateBooking(int userId, int carId, DateTime dateFrom, DateTime dateTo)
+        public void CreateBooking(int userId, CarModel selectedCar, DateTime dateFrom, DateTime dateTo)
         {
-            var test = isCarAvailable(carId, dateFrom, dateTo);
+            var isCarAvailable = CheckIsCarAvailable(selectedCar.Id, dateFrom, dateTo);
 
+            //TODO: check is car available before adding reservation
 
+            var totalPrice = GetCalculatedPrice(selectedCar.PricePerDay, dateFrom, dateTo);
+
+            _bookingRepository.AddBooking(userId, selectedCar.Id, dateFrom, dateTo, totalPrice);
+
+        }
+
+        public decimal GetCalculatedPrice(decimal pricePerDay, DateTime dateFrom, DateTime dateTo)
+        {
+            var differenceInDays = (dateTo.Date - dateFrom.Date).Days + 1;
+            return  differenceInDays * pricePerDay;
         }
     }
 }
