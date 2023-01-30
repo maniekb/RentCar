@@ -1,0 +1,67 @@
+﻿<Window x:Class="CarRent.App.Views.NewCarFormView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:local="clr-namespace:CarRent.App.Views"
+      mc:Ignorable="d" 
+      Title="Dodaj nowe auto" Height="280" Width="300"
+      ResizeMode="NoResize">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" >Numer rejestracyjny</Label>
+        <TextBox Grid.Row="0" Grid.Column="1" Margin="0,0,0,10" Text="{Binding Number}"/>
+
+        <Label Grid.Row="1">Marka:</Label>
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="0,0,0,10" Text="{Binding Brand}"/>
+
+        <Label Grid.Row="2">Model:</Label>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="0,0,0,10" Text="{Binding Model}"/>
+        
+        <Label Grid.Row="3">Rodzaj paliwa</Label>
+        <ComboBox Grid.Row="3" Grid.Column="1" Height="20" VerticalAlignment="Top" 
+                  ItemsSource="{Binding FuelTypesCollection}"
+                  SelectedItem="{Binding FuelType}"
+                  SelectedValuePath="Key"
+                  DisplayMemberPath="Value">
+        </ComboBox>
+
+        <Label Grid.Row="4">Rok produkcji</Label>
+        <ComboBox Grid.Row="4" Grid.Column="1" Height="20" VerticalAlignment="Top"
+            ItemsSource="{Binding YearsCollection}"
+            SelectedItem="{Binding YearOfProduction}"
+            SelectedValuePath="Key"
+            DisplayMemberPath="Value">
+        </ComboBox>
+
+        <Label Grid.Row="5">Klasa auta</Label>
+        <ComboBox Grid.Row="5" Grid.Column="1" Height="20" VerticalAlignment="Top"
+                  ItemsSource="{Binding CarClassCollection}"
+                  SelectedItem="{Binding CarClass}"
+                  SelectedValuePath="Key"
+                  DisplayMemberPath="Value">
+        </ComboBox>
+
+        <Label Grid.Row="6">Cena za dzień</Label>
+        <TextBox Grid.Row="6" Grid.Column="1" Margin="0,0,0,10" />
+
+        <Button Grid.Row="7" Grid.Column="1" Content="Dodaj auto" DockPanel.Dock="Bottom" Height="30" Width="100" VerticalAlignment ="Center" HorizontalAlignment="Center" Click="addNewCarBtn_Click"></Button>
+        <Label Grid.Row="8" Grid.Column="1" Content="{Binding ErrorMessage}"></Label>
+    </Grid>
+</Window>

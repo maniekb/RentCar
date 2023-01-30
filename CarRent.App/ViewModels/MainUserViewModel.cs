@@ -158,7 +158,6 @@ namespace CarRent.App.ViewModels
 
         private async void ExecuteRemovBookingCommand(object obj)
         {
-
             _bookingsService.RemoveBooking((int)obj);
             Bookings = _bookingsService.GetBookings();
         }

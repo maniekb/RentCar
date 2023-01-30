@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using CarRent.App.Views;
+using System;
 
 namespace CarRent.App.ViewModels
 {
@@ -22,6 +23,7 @@ namespace CarRent.App.ViewModels
         public ICommand RemoveBooking { get; }
         public ICommand RemoveUser { get; }
         public ICommand ShowUserBookings { get; }
+        public ICommand ShowNewCarForm { get; }
 
         public UserAccountModel CurrentUserAccount
         {
@@ -73,10 +75,11 @@ namespace CarRent.App.ViewModels
             RemoveBooking = new ViewModelCommand(p => ExecuteRemovBookingCommand(p));
             RemoveUser = new ViewModelCommand(p => ExecuteRemoveUser(p));
             ShowUserBookings = new ViewModelCommand(p => ExecuteShowUserBookings(p));
+            ShowNewCarForm = new ViewModelCommand(p => ExecuteShowNewCarForm(p));
             LoadCurrentUserData();
             LoadViewData();
         }
-
+        
         private void LoadViewData()
         {
             Cars = _carService.GetAll();
@@ -123,5 +126,10 @@ namespace CarRent.App.ViewModels
             Users = _userService.GetAllNonAdmin();
         }
 
+        private void ExecuteShowNewCarForm(object obj)
+        {
+            var newCarForm = new NewCarFormView(new AddNewCarViewModel(_carService));
+            newCarForm.Show();
+        }
     }
 }

@@ -82,11 +82,13 @@ namespace CarRent.App
             services.AddTransient(typeof(LoginView));
             services.AddTransient(typeof(MainAdminView));
             services.AddTransient(typeof(MainUserView));
+            services.AddTransient(typeof(NewCarFormView));
 
             // ViewModels
             services.AddTransient(typeof(LoginViewModel));
             services.AddTransient(typeof(MainAdminViewModel));
             services.AddTransient(typeof(MainUserViewModel));
+            services.AddTransient(typeof(AddNewCarViewModel));
 
             // Persistence
             services.AddDbContext<CarRentDbContext>
