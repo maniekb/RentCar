@@ -1,4 +1,5 @@
 ﻿using CarRent.Domain.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace CarRent.Data.Repositories.Abstract
@@ -12,6 +13,7 @@ namespace CarRent.Data.Repositories.Abstract
         List<Booking> GetCurrentBookingsForUser(int userID);
         List<Booking> GetPastBookingsForUser(int userID);
         List<Booking> GetUpcomingBookingsForUser(int userID);
+        List<Booking> GetCarReservationsForDateRange(int userID, DateTime dateFrom, DateTime dateTo);
 
         bool RemoveBooking(int bookingId);
     }

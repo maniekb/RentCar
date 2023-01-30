@@ -9,6 +9,7 @@ namespace CarRent.Data.Services.Abstract
     {
         BookingsModel GetBookings();
         BookingsModel GetBookingsForUser(int userId);
+        void CreateBooking(int userId, int carId, DateTime dateFrom, DateTime dateTo);
 
         void RemoveBooking(int bookingId);
     }
