@@ -118,7 +118,7 @@
                     </Button>
                 </Grid>
 
-                <TabControl Grid.Row="1" Background="Transparent" Foreground="DarkGray" BorderThickness="0" Margin="0,15">
+                <TabControl Grid.Row="1" Background="Transparent" Foreground="DarkGray" BorderThickness="0" Margin="0,15" SelectedIndex="{Binding SelectedIndex}">
                     <TabControl.Resources>
                         <Style TargetType="TabItem">
                             <Setter Property="Template">
@@ -145,7 +145,7 @@
                         </Style>
                     </TabControl.Resources>
 
-                    <TabItem Header="Lista Aut"  BorderThickness="0">
+                    <TabItem Name="tab1" Header="Lista Aut"  BorderThickness="0">
                         <DockPanel Margin="0,15">
                             <ListBox  Margin="0 0 25 0" BorderThickness="0" Foreground="DarkGray" Background="Transparent" Name="mcListBox" DockPanel.Dock="Left" ItemsSource="{Binding Cars}" SelectedItem="{Binding Path=SelectedCar,  UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                 <ListBox.ItemTemplate>
@@ -186,6 +186,7 @@
                                         <RowDefinition Height="30" />
                                         <RowDefinition Height="30" />
                                         <RowDefinition Height="30" />
+                                        <RowDefinition Height="30" />
                                     </Grid.RowDefinitions>
 
                                     <Label Foreground="DarkGray" Grid.Row="0" Grid.Column="0" Content="Typ:" FontWeight="Normal" FontSize="14"/>
@@ -196,6 +197,9 @@
 
                                     <Label Foreground="DarkGray" Grid.Row="2" Grid.Column="0" Content="Rodzaj paliwa:" FontWeight="Normal" FontSize="14"/>
                                     <Label Foreground="DarkGray" Grid.Row="2" Grid.Column="1" Content="{Binding Path=SelectedCar.FuelType}" FontWeight="Normal" FontSize="14"/>
+
+                                    <Label Foreground="DarkGray" Grid.Row="3" Grid.Column="0" Content="Cena za dobę:" FontWeight="Normal" FontSize="14"/>
+                                    <Label Foreground="DarkGray" Grid.Row="3" Grid.Column="1" Content="{Binding Path=SelectedCar.PricePerDay}" FontWeight="Normal" FontSize="14"/>
                                 </Grid>
 
                                 <Grid Grid.Row="2">
@@ -213,7 +217,7 @@
                                         </Grid.RowDefinitions>
 
                                         <Label Grid.Row="0" Foreground="DarkGray" Content="Data odbioru:" FontWeight="Normal" FontSize="16"/>
-                                        <DatePicker Grid.Row="1" Height="24" HorizontalAlignment="Left"  Width="200" />
+                                        <DatePicker Grid.Row="1" Height="24" HorizontalAlignment="Left"  Width="200"  SelectedDate="{Binding DateFrom}"/>
                                         
                                         <Grid Grid.Row="2" Margin="0,10,0,0">
                                             <Grid.ColumnDefinitions>
@@ -221,7 +225,7 @@
                                                 <ColumnDefinition />
                                             </Grid.ColumnDefinitions>
                                             <Label Grid.Column="0" Foreground="DarkGray" Content="Koszt całkowity: " FontWeight="Normal" FontSize="18"/>
-                                            <Label Grid.Column="1" Foreground="DarkGray" Content="152,20 zł" FontWeight="Medium" FontSize="18"/>
+                                            <Label Grid.Column="1" Foreground="DarkGray" Content="{Binding TotalPrice}" FontWeight="Medium" FontSize="18"/>
                                         </Grid>
                                     </Grid>
 
@@ -232,7 +236,7 @@
                                         </Grid.RowDefinitions>
 
                                         <Label Grid.Row="0" Foreground="DarkGray" Content="Data zwrotu:" FontWeight="Normal" FontSize="16"/>
-                                        <DatePicker Grid.Row="1" Height="24" HorizontalAlignment="Left"  Width="200" />
+                                        <DatePicker Grid.Row="1" Height="24" HorizontalAlignment="Left"  Width="200" SelectedDate="{Binding DateTo}" />
                                     </Grid>
 
                                     <Grid Grid.Column="2">
@@ -247,7 +251,7 @@
                             </Grid>
                         </DockPanel>
                     </TabItem>
-                    <TabItem Header="Nadchodzace wynajmy" Height="28" VerticalAlignment="Top">
+                    <TabItem Name="tab2" Header="Nadchodzace wynajmy" Height="28" VerticalAlignment="Top">
                         <StackPanel Margin="0,15">
                             <Label FontSize="20"  Foreground="DarkGray">Aktualne rezerwacje</Label>
                             <ListView DockPanel.Dock="Top" ItemsSource="{Binding Bookings.CurrentBookings}">
@@ -309,7 +313,7 @@
                             </ListView>
                         </StackPanel>
                     </TabItem>
-                    <TabItem Header="Konto">
+                    <TabItem Name="tab3" Header="Konto">
                         <Grid Margin="0,15">
                             <StackPanel>
                                 <Label Foreground="DarkGray" Content="{Binding CurrentUserAccount.DisplayName}" FontWeight="Bold" FontSize="20"/>
@@ -322,7 +326,6 @@
                             </StackPanel>
                         </Grid>
                     </TabItem>
-
                 </TabControl>
             </Grid>
         </Border>

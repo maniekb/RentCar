@@ -35,6 +35,9 @@ namespace CarRent.Data.Migrations
                     b.Property<DateTime>("DateTo")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("numeric");
+
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 

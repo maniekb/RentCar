@@ -59,8 +59,23 @@ namespace CarRent.Data.Repositories
         public List<Booking> GetCarReservationsForDateRange(int carId, DateTime dateFrom, DateTime dateTo)
            => _context.Bookings
                .Include(x => x.Car)
-               .Where(x => x.CarId == carId && (dateFrom <= x.DateFrom && dateTo >= x.DateTo  ||  dateFrom <= x.DateFrom && dateTo >= x.DateFrom || dateFrom >= x.DateFrom && dateTo <= x.DateTo || dateFrom <= x.DateTo && dateTo >= x.DateTo))
+               .Where(x => x.CarId == carId && (dateFrom <= x.DateFrom && dateTo >= x.DateTo || dateFrom <= x.DateFrom && dateTo >= x.DateFrom || dateFrom >= x.DateFrom && dateTo <= x.DateTo || dateFrom <= x.DateTo && dateTo >= x.DateTo))
                .ToList();
+
+        public void AddBooking(int userId, int carId, DateTime dateFrom, DateTime dateTo, decimal totalPrice)
+        {
+            var booking = new Booking
+            {
+                UserId = userId,
+                CarId = carId,
+                DateFrom = dateFrom,
+                DateTo = dateTo,
+                TotalPrice = totalPrice
+            };
+
+            _context.Bookings.Add(booking);
+            _context.SaveChanges();
+        }
 
         public bool RemoveBooking(int bookingId)
         {

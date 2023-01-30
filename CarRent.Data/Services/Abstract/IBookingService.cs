@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using CarRent.Common.Models;
+using CarRent.Data.Models;
 
 namespace CarRent.Data.Services.Abstract
 {
@@ -9,8 +10,10 @@ namespace CarRent.Data.Services.Abstract
     {
         BookingsModel GetBookings();
         BookingsModel GetBookingsForUser(int userId);
-        void CreateBooking(int userId, int carId, DateTime dateFrom, DateTime dateTo);
+        void CreateBooking(int userId, CarModel selectedCar, DateTime dateFrom, DateTime dateTo);
 
         void RemoveBooking(int bookingId);
+        public decimal GetCalculatedPrice(decimal pricePerDay, DateTime dateFrom, DateTime dateTo);
+
     }
 }
