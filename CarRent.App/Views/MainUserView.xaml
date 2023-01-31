@@ -217,7 +217,7 @@
                                         </Grid.RowDefinitions>
 
                                         <Label Grid.Row="0" Foreground="DarkGray" Content="Data odbioru:" FontWeight="Normal" FontSize="16"/>
-                                        <DatePicker Grid.Row="1" Height="24" HorizontalAlignment="Left"  Width="200"  SelectedDate="{Binding DateFrom}"/>
+                                        <DatePicker Grid.Row="1" Height="24" HorizontalAlignment="Left"  Width="200"  SelectedDate="{Binding DateFrom}" DisplayDateStart="{Binding MinAvailDate}"/>
                                         
                                         <Grid Grid.Row="2" Margin="0,10,0,0">
                                             <Grid.ColumnDefinitions>
@@ -236,7 +236,7 @@
                                         </Grid.RowDefinitions>
 
                                         <Label Grid.Row="0" Foreground="DarkGray" Content="Data zwrotu:" FontWeight="Normal" FontSize="16"/>
-                                        <DatePicker Grid.Row="1" Height="24" HorizontalAlignment="Left"  Width="200" SelectedDate="{Binding DateTo}" />
+                                        <DatePicker Grid.Row="1" Height="24" HorizontalAlignment="Left"  Width="200" SelectedDate="{Binding DateTo}" DisplayDateStart="{Binding DateFrom}" />
                                     </Grid>
 
                                     <Grid Grid.Column="2">
