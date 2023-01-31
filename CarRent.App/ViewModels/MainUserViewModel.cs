@@ -23,113 +23,28 @@ namespace CarRent.App.ViewModels
     public class MainUserViewModel : ViewModelBase
     {
         //Fields
-        private UserAccountModel _currentUserAccount;
+        private readonly ICarService _carService;
         private readonly IUserService _userService;
         private readonly IBookingService _bookingsService;
-        private readonly ICarService _carService;
+
+        private List<CarModel> cars;
+        private CarModel _selectedCar;
+        private BookingsModel _bookings;
+        private UserAccountModel _currentUserAccount;
+
+        private DateTime _dateFrom = DateTime.Now;
+        private DateTime _minAvailDate = DateTime.Now;
+        private DateTime _dateTo = DateTime.Now.AddDays(1);
+
+        private int _selectedTabIndex = 0;
+        private string _totalPrice = "0,00 zł";
+        private bool _isBookinkAvailable = true;
+        private bool _isAvailabilityErrorVisible = false;
 
         public ICommand LogoutCommand { get; }
-        private BookingsModel _bookings;
-        public BookingsModel Bookings
-        {
-            get
-            {
-                return _bookings;
-            }
-            set
-            {
-                _bookings = value;
-                OnPropertyChanged(nameof(Bookings));
-            }
-        }
         public ICommand RemoveBooking { get; }
         public ICommand CreateBooking { get; }
         public ICommand RemoveBindingCommand { get; }
-
-        private List<CarModel> cars;
-        public List<CarModel> Cars
-        {
-            get { return cars; }
-            set { cars = value; OnPropertyChanged("Cars"); }
-        }
-
-        private CarModel _selectedCar;
-        public CarModel SelectedCar
-        {
-            get { return _selectedCar; }
-            set { _selectedCar = value; OnPropertyChanged("SelectedCar"); RecalculatePrice(); }
-        }
-
-        private DateTime _dateFrom = DateTime.Now;
-
-        public DateTime DateFrom
-        {
-            get { return _dateFrom; }
-            set { _dateFrom = value; 
-                
-                if(value.CompareTo(_dateTo) > 0)
-                {
-                    DateTo = value;
-                }
-                
-                OnPropertyChanged("DateFrom"); RecalculatePrice();
-            }
-
-        }
-
-        private DateTime _minAvailDate = DateTime.Now;
-        public DateTime MinAvailDate
-        {
-            get { return _minAvailDate; }
-            set { _minAvailDate = value; OnPropertyChanged("MinAvailDate"); }
-        }
-
-
-        private DateTime _dateTo = DateTime.Now.AddDays(1);
-        public DateTime DateTo
-        {
-            get { return _dateTo; }
-            set { _dateTo = value; OnPropertyChanged("DateTo"); RecalculatePrice(); }
-        }
-
-
-
-        private string _totalPrice = "0,00 zł";
-
-        public string TotalPrice
-        {
-            get { return _totalPrice; }
-            set { _totalPrice = $"{value} zł"; OnPropertyChanged("TotalPrice"); }
-
-        }
-
-        private void RecalculatePrice()
-        {
-            TotalPrice = _bookingsService.GetCalculatedPrice(SelectedCar.PricePerDay, DateFrom, DateTo).ToString("N2");
-        }
-
-        private int _selectedIndex = 0;
-
-        public int SelectedIndex
-        {
-            get { return _selectedIndex; }
-            set { _selectedIndex = value; OnPropertyChanged("SelectedIndex"); }
-        }
-
-
-        public UserAccountModel CurrentUserAccount
-        {
-            get
-            {
-                return _currentUserAccount;
-            }
-
-            set
-            {
-                _currentUserAccount = value;
-                OnPropertyChanged(nameof(CurrentUserAccount));
-            }
-        }
 
         public MainUserViewModel(IUserService userService, IBookingService bookingsService, ICarService carService)
         {
@@ -171,6 +86,115 @@ namespace CarRent.App.ViewModels
             TotalPrice = _bookingsService.GetCalculatedPrice(SelectedCar.PricePerDay, DateFrom, DateTo).ToString("N2");
         }
 
+        public bool IsBookinkAvailable
+        {
+            get { return _isBookinkAvailable; }
+            set { _isBookinkAvailable = value; IsAvailabilityErrorVisible = !value; OnPropertyChanged("IsBookinkAvailable");  }
+        }
+
+        public bool IsAvailabilityErrorVisible
+        {
+            get { return _isAvailabilityErrorVisible; }
+            set { _isAvailabilityErrorVisible = value; OnPropertyChanged("IsAvailabilityErrorVisible"); }
+
+        }
+
+        public BookingsModel Bookings
+        {
+            get
+            {
+                return _bookings;
+            }
+            set
+            {
+                _bookings = value;
+                OnPropertyChanged(nameof(Bookings));
+            }
+        }
+
+        public List<CarModel> Cars
+        {
+            get { return cars; }
+            set { cars = value; OnPropertyChanged("Cars"); }
+        }
+
+        public CarModel SelectedCar
+        {
+            get { return _selectedCar; }
+            set { _selectedCar = value; OnPropertyChanged("SelectedCar"); RefreshAvailability(); }
+        }
+
+        public DateTime DateFrom
+        {
+            get { return _dateFrom; }
+            set
+            {
+                _dateFrom = value;
+
+                if (value.CompareTo(_dateTo) > 0)
+                {
+                    DateTo = value;
+                }
+
+                OnPropertyChanged("DateFrom"); RefreshAvailability();
+            }
+
+        }
+
+        public DateTime MinAvailDate
+        {
+            get { return _minAvailDate; }
+            set { _minAvailDate = value; OnPropertyChanged("MinAvailDate"); }
+        }
+
+
+        public DateTime DateTo
+        {
+            get { return _dateTo; }
+            set { _dateTo = value; OnPropertyChanged("DateTo"); RefreshAvailability(); }
+        }
+
+
+        public string TotalPrice
+        {
+            get { return _totalPrice; }
+            set { _totalPrice = $"{value} zł"; OnPropertyChanged("TotalPrice"); }
+
+        }
+
+        private void RefreshAvailability()
+        {
+            RecalculatePrice();
+            if (IsBookinkAvailable == false) IsBookinkAvailable = true;
+        }
+
+        private void RecalculatePrice()
+        {
+            TotalPrice = _bookingsService.GetCalculatedPrice(SelectedCar.PricePerDay, DateFrom, DateTo).ToString("N2");
+        }
+
+
+        public int SelectedTabIndex
+        {
+            get { return _selectedTabIndex; }
+            set { _selectedTabIndex = value; OnPropertyChanged("SelectedTabIndex"); }
+        }
+
+
+        public UserAccountModel CurrentUserAccount
+        {
+            get
+            {
+                return _currentUserAccount;
+            }
+
+            set
+            {
+                _currentUserAccount = value;
+                OnPropertyChanged(nameof(CurrentUserAccount));
+            }
+        }
+
         private async void ExecuteLogoutCommand()
         {
             App thisApp = (App)App.Current;
@@ -183,11 +207,18 @@ namespace CarRent.App.ViewModels
             Bookings = _bookingsService.GetBookings();
         }
 
-        private  void HandleCreateBooking()
+        private void HandleCreateBooking()
         {
-             _bookingsService.CreateBooking(CurrentUserAccount.Id, SelectedCar, DateFrom, DateTo);
-            Bookings = _bookingsService.GetBookingsForUser(CurrentUserAccount.Id);
-            SelectedIndex = 1;
+            try
+            {
+                _bookingsService.CreateBooking(CurrentUserAccount.Id, SelectedCar, DateFrom, DateTo);
+                Bookings = _bookingsService.GetBookingsForUser(CurrentUserAccount.Id);
+                SelectedTabIndex = 1;
+            }
+            catch (Exception)
+            {
+                IsBookinkAvailable = false;
+            }
         }
 
     }

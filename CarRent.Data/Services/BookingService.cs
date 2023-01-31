@@ -78,9 +78,7 @@ namespace CarRent.Data.Services
 
             var foundBookings = _bookingRepository.GetCarReservationsForDateRange(carId, dateFrom, dateTo);
 
-            return foundBookings != null ? false : true;
-
-            
+            return foundBookings.Count == 0 ? true : false;
         }
 
 
@@ -88,12 +86,15 @@ namespace CarRent.Data.Services
         {
             var isCarAvailable = CheckIsCarAvailable(selectedCar.Id, dateFrom, dateTo);
 
-            //TODO: check is car available before adding reservation
-
-            var totalPrice = GetCalculatedPrice(selectedCar.PricePerDay, dateFrom, dateTo);
-
-            _bookingRepository.AddBooking(userId, selectedCar.Id, dateFrom, dateTo, totalPrice);
-
+            if(isCarAvailable)
+            {
+                var totalPrice = GetCalculatedPrice(selectedCar.PricePerDay, dateFrom, dateTo);
+                _bookingRepository.AddBooking(userId, selectedCar.Id, dateFrom, dateTo, totalPrice);
+            }
+            else
+            {
+                throw new Exception("Ten pojazd nie jest dostępny w wybranym terminie!");
+            }
         }
 
         public decimal GetCalculatedPrice(decimal pricePerDay, DateTime dateFrom, DateTime dateTo)
