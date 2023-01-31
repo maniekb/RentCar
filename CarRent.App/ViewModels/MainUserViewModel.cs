@@ -57,11 +57,42 @@ namespace CarRent.App.ViewModels
         public CarModel SelectedCar
         {
             get { return _selectedCar; }
-            set { _selectedCar = value; OnPropertyChanged("SelectedCar"); }
+            set { _selectedCar = value; OnPropertyChanged("SelectedCar"); RecalculatePrice(); }
+        }
+
+        private DateTime _dateFrom = DateTime.Now;
+
+        public DateTime DateFrom
+        {
+            get { return _dateFrom; }
+            set { _dateFrom = value; 
+                
+                if(value.CompareTo(_dateTo) > 0)
+                {
+                    DateTo = value;
+                }
+                
+                OnPropertyChanged("DateFrom"); RecalculatePrice();
+            }
+
+        }
+
+        private DateTime _minAvailDate = DateTime.Now;
+        public DateTime MinAvailDate
+        {
+            get { return _minAvailDate; }
+            set { _minAvailDate = value; OnPropertyChanged("MinAvailDate"); }
         }
 
 
-        private DateTime _dateFrom = DateTime.Now;
+        private DateTime _dateTo = DateTime.Now.AddDays(1);
+        public DateTime DateTo
+        {
+            get { return _dateTo; }
+            set { _dateTo = value; OnPropertyChanged("DateTo"); RecalculatePrice(); }
+        }
+
+
 
         private string _totalPrice = "0,00 zł";
 
@@ -72,19 +103,9 @@ namespace CarRent.App.ViewModels
 
         }
 
-        public DateTime DateFrom
+        private void RecalculatePrice()
         {
-            get { return _dateFrom; }
-            set { _dateFrom = value; TotalPrice = _bookingsService.GetCalculatedPrice(SelectedCar.PricePerDay, value, DateTo).ToString("N2"); OnPropertyChanged("DateFrom"); }
-
-        }
-
-
-        private DateTime _dateTo = DateTime.Now.AddDays(1);
-        public DateTime DateTo
-        {
-            get { return _dateTo; }
-            set { _dateTo = value; TotalPrice = _bookingsService.GetCalculatedPrice(SelectedCar.PricePerDay, DateFrom, value).ToString("N2"); OnPropertyChanged("DateTo"); }
+            TotalPrice = _bookingsService.GetCalculatedPrice(SelectedCar.PricePerDay, DateFrom, DateTo).ToString("N2");
         }
 
         private int _selectedIndex = 0;
