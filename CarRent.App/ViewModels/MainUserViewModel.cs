@@ -60,8 +60,6 @@ namespace CarRent.App.ViewModels
             set { _selectedCar = value; OnPropertyChanged("SelectedCar"); RecalculatePrice(); }
         }
 
-        public DateTime MinimumSelectedDate = DateTime.Now;
-
         private DateTime _dateFrom = DateTime.Now;
 
         public DateTime DateFrom
