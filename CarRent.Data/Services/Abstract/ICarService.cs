@@ -8,5 +8,6 @@ namespace CarRent.Data.Services.Abstract
     {
         public List<CarModel> GetAll();
         public bool AddCar(string number, string brand, string model, CarClassEnum carClass, FuelTypeEnum fuelType, int yearOfProduction, decimal pricePerDay);
+        public bool DeleteCar(string number);
     }
 }

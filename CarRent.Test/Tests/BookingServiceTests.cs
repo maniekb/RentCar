@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
 using CarRent.Data.Repositories.Abstract;
 using CarRent.Data.Services;
 using CarRent.Domain.Entities;
 using Moq;
 using NUnit.Framework;
 
-namespace CarRent.Test
+namespace CarRent.Test.Tests
 {
     public class BookingServiceTests
     {
@@ -55,6 +56,10 @@ namespace CarRent.Test
             Assert.AreEqual(1, bookings.PastBookings.Count);
             Assert.AreEqual(0, bookings.UpcomingBookings.Count);
             Assert.AreEqual(0, bookings.CurrentBookings.Count);
+
+            var pastBooking = bookings.PastBookings.First();
+
+            Assert.AreEqual($"{booking.Car.Brand} {booking.Car.Model} {booking.Car.Number}", pastBooking.Car);
         }
     }
 }

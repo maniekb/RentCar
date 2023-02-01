@@ -119,6 +119,22 @@
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=CarClass}" Header="Typ" Width="100"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=FuelType}" Header="Rodzaj paliwa" Width="100"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=PricePerDay}" Header="Cena dzienna" Width="100"/>
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button
+                                                x:Name="removeCarBtn"
+                                                Content="Usuń"
+                                                Margin="0"
+                                                Tag="{Binding Path=Number}"
+                                                Click="removeCarBtn_Click"
+
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Left">
+                                            </Button>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
                             </GridView>
 
                         </ListView.View>

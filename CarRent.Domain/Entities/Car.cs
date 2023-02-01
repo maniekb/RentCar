@@ -5,6 +5,7 @@ namespace CarRent.Domain.Entities
     public class Car
     {
         public int Id { get; set; }
+        public bool IsDeleted { get; set; }
         public string Number { get; set; }
         public string Brand { get; set; }
         public string Model { get; set; }

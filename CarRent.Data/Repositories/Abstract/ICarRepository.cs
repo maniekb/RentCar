@@ -8,5 +8,6 @@ namespace CarRent.Data.Repositories.Abstract
         public List<Car> GetAll();
         Car GetByNumber(string number);
         void AddCar(Car car);
+        bool DeleteCar(Car car);
     }
 }

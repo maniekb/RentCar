@@ -59,5 +59,13 @@ namespace CarRent.Data.Services
             _carRepository.AddCar(car);
             return true;
         }
+
+        public bool DeleteCar(string number)
+        {
+            var car = _carRepository.GetByNumber(number);
+            if (car == null)
+                return false;
+            return _carRepository.DeleteCar(car);
+        }
     }
 }
