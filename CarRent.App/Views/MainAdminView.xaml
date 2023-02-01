@@ -112,6 +112,7 @@
                         <ListView.View>
 
                             <GridView AllowsColumnReorder="true" ColumnHeaderToolTip="Car information">
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Number}" Header="Numer rej." Width="100"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Brand}" Header="Marka" Width="100"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Model}" Header="Model" Width="100"/>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=YearOfProduction}" Header="Rok produkcji" Width="100"/>

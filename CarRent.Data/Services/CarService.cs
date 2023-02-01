@@ -3,9 +3,11 @@ using CarRent.Data.Services.Abstract;
 using CarRent.Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CarRent.Common.Authentication.Helpers;
 using CarRent.Data.Models;
+using CarRent.Domain.Enums;
 
 namespace CarRent.Data.Services
 {
@@ -25,6 +27,7 @@ namespace CarRent.Data.Services
             return cars.Select(c => new CarModel()
             {
                 Id = c.Id,
+                Number = c.Number,
                 Brand = c.Brand,
                 Model = c.Model,
                 YearOfProduction = c.YearOfProduction,
@@ -32,6 +35,29 @@ namespace CarRent.Data.Services
                 FuelType = CarHelper.ResolveFuelType(c.FuelType),
                 PricePerDay = c.PricePerDay
             }).ToList();
+        }
+
+        public bool AddCar(string number, string brand, string model, CarClassEnum carClass, FuelTypeEnum fuelType,
+            int yearOfProduction, decimal pricePerDay)
+        {
+            var car = _carRepository.GetByNumber(number);
+
+            if (car != null)
+                return false;
+
+            car = new Car()
+            {
+                Number = Regex.Replace(number, @"\s+", "").ToUpper(),
+                Brand = brand,
+                Model = model,
+                CarClass = carClass,
+                FuelType = fuelType,
+                YearOfProduction = yearOfProduction,
+                PricePerDay = pricePerDay
+            };
+
+            _carRepository.AddCar(car);
+            return true;
         }
     }
 }

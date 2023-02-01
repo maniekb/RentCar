@@ -59,9 +59,8 @@
         </ComboBox>
 
         <Label Grid.Row="6">Cena za dzień</Label>
-        <TextBox Grid.Row="6" Grid.Column="1" Margin="0,0,0,10" />
+        <TextBox Grid.Row="6" Grid.Column="1" Margin="0,0,0,10" Text="{Binding PricePerDay}"/>
 
         <Button Grid.Row="7" Grid.Column="1" Content="Dodaj auto" DockPanel.Dock="Bottom" Height="30" Width="100" VerticalAlignment ="Center" HorizontalAlignment="Center" Click="addNewCarBtn_Click"></Button>
-        <Label Grid.Row="8" Grid.Column="1" Content="{Binding ErrorMessage}"></Label>
     </Grid>
 </Window>

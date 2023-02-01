@@ -6,5 +6,7 @@ namespace CarRent.Data.Repositories.Abstract
     public interface ICarRepository
     {
         public List<Car> GetAll();
+        Car GetByNumber(string number);
+        void AddCar(Car car);
     }
 }

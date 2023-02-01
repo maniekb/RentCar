@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using CarRent.Common.Models;
-using CarRent.Data.Migrations;
+﻿using CarRent.Common.Models;
 using CarRent.Data.Models;
 using CarRent.Data.Repositories.Abstract;
 using CarRent.Data.Services.Abstract;
 using CarRent.Domain.Entities;
-using static System.Collections.Specialized.BitVector32;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CarRent.Data.Services
 {

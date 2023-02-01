@@ -39,7 +39,20 @@ namespace CarRent.App.ViewModels
             }
         }
 
-        public List<CarModel> Cars { get; set; }
+        public List<CarModel> _cars { get; set; }
+        public List<CarModel> Cars
+        {
+            get
+            {
+                return _cars;
+            }
+            set
+            {
+                _cars = value;
+                OnPropertyChanged(nameof(Cars));
+            }
+        }
+
         private List<UserModel> _users;
         public List<UserModel> Users { 
             get
@@ -82,10 +95,14 @@ namespace CarRent.App.ViewModels
         
         private void LoadViewData()
         {
-            Cars = _carService.GetAll();
-            Users = _userService.GetAllNonAdmin();
-            Bookings = _bookingsService.GetBookings();
+            LoadCars();
+            LoadBookings();
+            LoadUsers();
         }
+
+        public void LoadCars() => Cars = _carService.GetAll();
+        public void LoadUsers() => Users = _userService.GetAllNonAdmin();
+        public void LoadBookings() => Bookings = _bookingsService.GetBookings();
 
         private void LoadCurrentUserData()
         {
@@ -128,7 +145,7 @@ namespace CarRent.App.ViewModels
 
         private void ExecuteShowNewCarForm(object obj)
         {
-            var newCarForm = new NewCarFormView(new AddNewCarViewModel(_carService));
+            var newCarForm = new NewCarFormView(new AddNewCarViewModel(_carService, this));
             newCarForm.Show();
         }
     }

@@ -21,5 +21,15 @@ namespace CarRent.Data.Repositories
 
         public List<Car> GetAll()
             => _context.Cars.ToList();
+
+        public Car GetByNumber(string number)
+            => _context.Cars.FirstOrDefault(x => x.Number.ToLower() == number.ToLower());
+        
+
+        public void AddCar(Car car)
+        {
+            _context.Cars.Add(car);
+            _context.SaveChanges();
+        }
     }
 }

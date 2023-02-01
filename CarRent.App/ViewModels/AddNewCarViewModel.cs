@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using CarRent.Data.Services.Abstract;
 using System.Windows.Input;
 using CarRent.Domain.Enums;
@@ -11,6 +13,7 @@ namespace CarRent.App.ViewModels
     {
         //Fields
         private readonly ICarService _carService;
+        private MainAdminViewModel AdminViewModel;
         public ICommand AddNewCar { get; }
 
         public static ObservableCollection<KeyValuePair<int, string>> FuelTypesCollection { get; set; } = new ObservableCollection<KeyValuePair<int, string>>()
@@ -51,15 +54,35 @@ namespace CarRent.App.ViewModels
 
         public virtual string ErrorMessage { get; set; }
 
-        public AddNewCarViewModel(ICarService carService)
+        public AddNewCarViewModel(ICarService carService, MainAdminViewModel adminViewModel)
         {
             _carService = carService;
+            AdminViewModel = adminViewModel;
             AddNewCar = new ViewModelCommand(p => ExecuteAddNewCar(p));
         }
 
         private void ExecuteAddNewCar(object obj)
         {
-            // TODO Walidacja wszystkich pol
+            if(DataIsIncomplete())
+                MessageBox.Show("Nie wszystkie dane są uzupełnione poprawnie.", "Niepoprawne dane", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            if (!_carService.AddCar(Number, Brand, Model, (CarClassEnum) CarClass.Key, (FuelTypeEnum) FuelType.Key,
+                YearOfProduction.Value, Decimal.Parse(PricePerDay)))
+            {
+                MessageBox.Show($"Samochód o tym numerze rejestracyjnym {Number.ToUpper()} już istnieje.", "Niepoprawne dane", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+
+            MessageBox.Show($"Dodano samochód o numerze rejestracyjnym {Number.ToUpper()}.", "Niepoprawne dane");
+            AdminViewModel.LoadCars();
         }
+
+        private bool DataIsIncomplete() =>
+            string.IsNullOrEmpty(Number)
+            || string.IsNullOrEmpty(Brand)
+            || string.IsNullOrEmpty(Model)
+            || string.IsNullOrEmpty(PricePerDay)
+            || !Decimal.TryParse(PricePerDay, out var price);
     }
 }
