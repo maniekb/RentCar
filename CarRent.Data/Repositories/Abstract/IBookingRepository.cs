@@ -13,7 +13,7 @@ namespace CarRent.Data.Repositories.Abstract
         List<Booking> GetCurrentBookingsForUser(int userID);
         List<Booking> GetPastBookingsForUser(int userID);
         List<Booking> GetUpcomingBookingsForUser(int userID);
-        List<Booking> GetCarReservationsForDateRange(int userID, DateTime dateFrom, DateTime dateTo);
+        List<Booking> GetCarReservationsForDateRange(int carId, DateTime dateFrom, DateTime dateTo);
 
         void AddBooking(int userId, int carId, DateTime dateFrom, DateTime dateTo, decimal pricePerDay);
         bool RemoveBooking(int bookingId);
