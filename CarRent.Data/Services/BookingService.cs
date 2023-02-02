@@ -99,5 +99,14 @@ namespace CarRent.Data.Services
             var differenceInDays = (dateTo.Date - dateFrom.Date).Days + 1;
             return  differenceInDays * pricePerDay;
         }
+
+        public int GetBookingCountForUser(int userId)
+        {
+            var pastBookings = _bookingRepository.GetPastBookingsForUser(userId);
+            var currentBookings = _bookingRepository.GetCurrentBookingsForUser(userId);
+            var upcomingBookings = _bookingRepository.GetUpcomingBookingsForUser(userId);
+
+            return pastBookings.Count + currentBookings.Count + upcomingBookings.Count;
+        }
     }
 }

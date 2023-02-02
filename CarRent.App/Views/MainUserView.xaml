@@ -369,12 +369,34 @@
                         <Grid Margin="0,15">
                             <StackPanel>
                                 <Label Foreground="DarkGray" Content="{Binding CurrentUserAccount.DisplayName}" FontWeight="Bold" FontSize="20"/>
-                                <Label Foreground="DarkGray" Content="Email" FontWeight="Normal" FontSize="14"/>
-                                <Label Foreground="DarkGray" Content="Dolaczyl" FontWeight="Normal" FontSize="14"/>
-                                <Label Foreground="DarkGray" Content="Ilosc rezerwacji" FontWeight="Normal" FontSize="14"/>
-                                <Button Content="Wyloguj" Height="30" Width="100" HorizontalAlignment="Left" Margin="0,20,0,0" Command="{Binding LogoutCommand}"/>
-                                <Button Content="Zmien haslo" Height="30" Width="100" HorizontalAlignment="Left"/>
-                                <Button Content="Usun konto" Height="30" Width="100" HorizontalAlignment="Left"/>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="125"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Row="0" Grid.Column="0" Foreground="DarkGray" Content="Email" FontWeight="Normal" FontSize="14"/>
+                                    <Label Grid.Row="0" Grid.Column="1" Foreground="DarkGray" Content="{Binding Path=CurrentUserAccount.Email}" FontWeight="Normal" FontSize="14"/>
+                                    <Label Grid.Row="2" Grid.Column="0" Foreground="DarkGray" Content="Ilosc rezerwacji" FontWeight="Normal" FontSize="14"/>
+                                    <Label Grid.Row="2" Grid.Column="1" Foreground="DarkGray" Content="{Binding UserBookingCount}" FontWeight="Normal" FontSize="14"/>
+                                    <Grid Grid.Row="4" Grid.Column="1" Margin="0,20,0,0">
+                                        <Grid Margin="110,100,0,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="100"/>
+                                                <ColumnDefinition Width="100"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Button Grid.Column="0" Margin="0,0,2,0" Content="Wyloguj" Height="30" Width="100" HorizontalAlignment="Left" Command="{Binding LogoutCommand}"/>
+                                            <Button Grid.Column="1" Margin="0,0,2,0" Content="Zmien haslo" Height="30" Width="100" HorizontalAlignment="Left"/>
+                                            <Button Grid.Column="2" Margin="0,0,2,0" Content="Usun konto" Height="30" Width="100" HorizontalAlignment="Left"/>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
                             </StackPanel>
                         </Grid>
                     </TabItem>

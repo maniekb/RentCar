@@ -37,6 +37,7 @@ namespace CarRent.App.ViewModels
         private DateTime _dateTo = DateTime.Now.AddDays(1);
 
         private int _selectedTabIndex = 0;
+        private int _userBookingCount = 0;
         private string _totalPrice = "0,00 zł";
         private bool _isBookinkAvailable = true;
         private bool _isAvailabilityErrorVisible = false;
@@ -70,7 +71,7 @@ namespace CarRent.App.ViewModels
                 CurrentUserAccount.Id = user.Id;
                 CurrentUserAccount.DisplayName = $"{user.Name} {user.LastName}";
 
-                Bookings = _bookingsService.GetBookingsForUser(user.Id);
+                ReloadViewData();
                 LoadCars();
             }
             else
@@ -153,6 +154,13 @@ namespace CarRent.App.ViewModels
             get { return _dateTo; }
             set { _dateTo = value; OnPropertyChanged("DateTo"); RefreshAvailability(); }
         }
+        
+        
+        public int UserBookingCount
+        {
+            get { return _userBookingCount; }
+            set { _userBookingCount = value; OnPropertyChanged("UserBookingCount");}
+        }
 
 
         public string TotalPrice
@@ -204,7 +212,13 @@ namespace CarRent.App.ViewModels
         private async void ExecuteRemovBookingCommand(object obj)
         {
             _bookingsService.RemoveBooking((int)obj);
-            Bookings = _bookingsService.GetBookings();
+            ReloadViewData();
+        }
+
+        private void ReloadViewData()
+        {
+            Bookings = _bookingsService.GetBookingsForUser(CurrentUserAccount.Id);
+            UserBookingCount = _bookingsService.GetBookingCountForUser(CurrentUserAccount.Id);
         }
 
         private void HandleCreateBooking()
@@ -212,7 +226,7 @@ namespace CarRent.App.ViewModels
             try
             {
                 _bookingsService.CreateBooking(CurrentUserAccount.Id, SelectedCar, DateFrom, DateTo);
-                Bookings = _bookingsService.GetBookingsForUser(CurrentUserAccount.Id);
+                ReloadViewData();
                 SelectedTabIndex = 1;
             }
             catch (Exception)

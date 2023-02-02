@@ -11,9 +11,8 @@ namespace CarRent.Data.Services.Abstract
         BookingsModel GetBookings();
         BookingsModel GetBookingsForUser(int userId);
         void CreateBooking(int userId, CarModel selectedCar, DateTime dateFrom, DateTime dateTo);
-
         void RemoveBooking(int bookingId);
         public decimal GetCalculatedPrice(decimal pricePerDay, DateTime dateFrom, DateTime dateTo);
-
+        public int GetBookingCountForUser(int userId);
     }
 }
