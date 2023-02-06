@@ -74,5 +74,16 @@ namespace CarRent.Data.Services
         {
             return _userRepository.RemoveUser(userId);
         }
+
+        public void AddUser(NetworkCredential networkCredential, string name, string lastName)
+        {
+            _userRepository.AddUser(new Domain.Entities.User {
+                Email = networkCredential.UserName, 
+                Password = PasswordHasher.Hash(networkCredential.Password),
+                Name = name,
+                LastName = lastName
+            });
+        
+        }
     }
 }

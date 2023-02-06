@@ -16,7 +16,7 @@ namespace CarRent.App.ViewModels
         private string _errorMessage;
         private bool _isViewVisible = true;
 
-        private readonly IUserService _userService;
+        public readonly IUserService _userService;
 
         public string Email
         {

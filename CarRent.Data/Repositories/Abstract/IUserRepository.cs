@@ -10,5 +10,6 @@ namespace CarRent.Data.Repositories.Abstract
         User GetUserByEmail(string email);
         List<User> GetAllNonAdmin();
         bool RemoveUser(int userId);
+        void AddUser(User user);
     }
 }
