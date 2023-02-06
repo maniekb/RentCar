@@ -13,5 +13,6 @@ namespace CarRent.Data.Services.Abstract
         List<UserModel> GetAllNonAdmin();
 
         bool RemoveUser(int userId);
+        void AddUser(NetworkCredential networkCredential, string name, string lastName);
     }
 }

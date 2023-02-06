@@ -34,6 +34,13 @@ namespace CarRent.App.Views
 
         private void btnLogin_Click(object sender, RoutedEventArgs e) { }
 
- 
+        private async void btnSignUp_Click(object sender, RoutedEventArgs e)
+        {
+            ////var vm = new SignUpViewModel(((LoginViewModel)DataContext)._userService);
+            var view = new SignUpView(new SignUpViewModel(((LoginViewModel)DataContext)._userService));
+            //view.Topmost = true;
+            //var view = new LoginView(new LoginViewModel(((LoginViewModel)DataContext)._userService));
+            view.Show();
+        }
     }
 }

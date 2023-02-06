@@ -49,6 +49,10 @@ namespace CarRent.Data.Repositories
             return false;
         }
 
-
+        public void AddUser(User user)
+        {
+            _context.Add<User>(user);
+            _context.SaveChanges();
+        }
     }
 }
