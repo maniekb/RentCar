@@ -64,7 +64,10 @@ namespace CarRent.App.ViewModels
         private void ExecuteAddNewCar(object obj)
         {
             if(DataIsIncomplete())
+            {
                 MessageBox.Show("Nie wszystkie dane są uzupełnione poprawnie.", "Niepoprawne dane", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             if (!_carService.AddCar(Number, Brand, Model, (CarClassEnum) CarClass.Key, (FuelTypeEnum) FuelType.Key,
                 YearOfProduction.Value, Decimal.Parse(PricePerDay)))
@@ -74,7 +77,7 @@ namespace CarRent.App.ViewModels
             }
 
 
-            MessageBox.Show($"Dodano samochód o numerze rejestracyjnym {Number.ToUpper()}.", "Niepoprawne dane");
+            MessageBox.Show($"Dodano samochód o numerze rejestracyjnym {Number.ToUpper()}.", "Dodano samochód");
             AdminViewModel.LoadCars();
         }
 

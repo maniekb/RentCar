@@ -297,7 +297,7 @@
                             </Grid>
                         </DockPanel>
                     </TabItem>
-                    <TabItem Name="tab2" Header="Nadchodzace wynajmy" Height="28" VerticalAlignment="Top">
+                    <TabItem Name="tab2" Header="Wynajmy" Height="28" VerticalAlignment="Top">
                         <StackPanel Margin="0,15">
                             <Label FontSize="20"  Foreground="DarkGray">Aktualne rezerwacje</Label>
                             <ScrollViewer MaxHeight="100">
